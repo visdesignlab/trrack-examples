@@ -1,6 +1,6 @@
 # provenance-examples
 
-This is a collection of examples for the [provenance-lib-core](https://github.com/visdesignlab/provenance-lib-core) project. Each example has more information about what parts of the library they cover in their individual README's, but a brief overview can be found below.
+This is a collection of examples for the [provenance-lib-core](https://github.com/visdesignlab/provenance-lib-core) project. Each example is heavily commented around areas that are utilizing provenance, and a brief overview of what can be found in each example is below.
 
 ## simpleExample
 
