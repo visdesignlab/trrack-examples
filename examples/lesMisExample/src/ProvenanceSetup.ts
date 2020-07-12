@@ -163,7 +163,6 @@ d3.json("../data/miserables.json").then(graph => {
 
 
 
-
 /*
 * Creates starting state. Is called after running simulations.
 * Creates and returns provenance object.

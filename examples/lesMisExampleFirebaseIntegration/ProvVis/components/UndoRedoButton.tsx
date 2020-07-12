@@ -23,16 +23,28 @@ function UndoRedoButton<T, S extends string, A>({
   const isAtRoot = graph.root === graph.current;
   const isAtLatest = graph.nodes[graph.current].children.length === 0;
 
+  let margin = {
+    marginRight: "3px"
+  } as React.CSSProperties
+
   return (
     <div>
      <button
        className={undoButtonStyle}
        disabled={isAtRoot}
-       onClick={undoCallback}>Undo</button>
+       onClick={undoCallback}
+      ><i style={margin} className="fas fa-undo marginRight"></i>
+        Undo</button>
+
+
      <button
        className={redoButtonStyle}
        disabled={isAtLatest}
-       onClick={redoCallback}>Redo</button>
+       onClick={redoCallback}
+       ><i style={margin} className="fas fa-redo marginRight"></i>
+      Redo</button>
+
+
     </div>
  );
 }
@@ -62,6 +74,11 @@ const undoButtonStyle = style({
       backgroundColor: "#6c7c7c"
     }
   }
+});
+
+const marginRight = style({
+  marginRight:"3px",
+
 });
 
 const redoButtonStyle = style({

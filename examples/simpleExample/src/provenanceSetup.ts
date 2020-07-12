@@ -67,6 +67,7 @@ let changeQuartetUpdate = function(newQuartet: string){
   )
 
   action
+
     .addEventType("Change Quartet")
     .alwaysStoreState(true)
     .applyAction();
@@ -135,7 +136,6 @@ prov.addObserver(["selectedQuartet"], () => {
   scatterplot.changeQuartet(prov.current().getState().selectedQuartet);
 
   provVisUpdate()
-
 });
 
 /**
