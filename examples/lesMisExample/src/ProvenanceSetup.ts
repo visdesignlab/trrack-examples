@@ -35,7 +35,7 @@ let initialState: NodeState = {
   selectedNode: 'none'
 }
 
-d3.json("../data/miserables.json").then(graph => {
+d3.json("./data/miserables.json").then(graph => {
   let simulation = runSimulation(graph);
 
   let provenance = setupProvenance(graph);
