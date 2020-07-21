@@ -13,26 +13,6 @@ function translate(x: number, y: number): string {
 
 
 //Occurs on clear all click ???
-export function SelectedBar({ size = 15, fill = "#ccc" }: AddTaskGlyphProps) {
-  return (
-    <g>
-      <circle fill="white" r={size - size / 4} />
-      <g>
-        <text
-          fontSize={size}
-          fill={fill}
-          textAnchor="middle"
-          dominantBaseline="middle"
-          fontFamily="FontAwesome"
-        >
-          &#xf05b;
-        </text>
-      </g>
-    </g>
-  );
-}
-
-//Occurs on clear all click ???
 export function SelectedNode({ size = 15, fill = "#ccc" }: AddTaskGlyphProps) {
   return (
     <g>
@@ -45,7 +25,27 @@ export function SelectedNode({ size = 15, fill = "#ccc" }: AddTaskGlyphProps) {
           dominantBaseline="middle"
           fontFamily="FontAwesome"
         >
-          &#xf13d;
+          &#xf080;
+        </text>
+      </g>
+    </g>
+  );
+}
+
+//Occurs on clear all click ???
+export function SelectedBar({ size = 15, fill = "#ccc" }: AddTaskGlyphProps) {
+  return (
+    <g>
+      <circle fill="white" r={size - size / 4} />
+      <g>
+        <text
+          fontSize={size}
+          fill={fill}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fontFamily="FontAwesome"
+        >
+          &#xf126;
         </text>
       </g>
     </g>
@@ -65,7 +65,7 @@ export function NodeMoved({ size = 15, fill = "#ccc" }: AddTaskGlyphProps) {
           dominantBaseline="middle"
           fontFamily="FontAwesome"
         >
-          &#xf1b9;
+          &#xf060;
         </text>
       </g>
     </g>
