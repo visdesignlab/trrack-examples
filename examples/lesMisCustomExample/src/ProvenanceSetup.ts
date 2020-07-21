@@ -66,10 +66,10 @@ let eventConfig: EventConfig<EventTypes> = {
  };
 
  let labels = false;
- let iconSize = 1;
+ let iconSize = 50;
 
- let regularCircleRadius = 5;
- let backboneCircleRadius = 5;
+ let regularCircleRadius = 7*(iconSize/100);
+ let backboneCircleRadius = 7*(iconSize/100);
 
 
 d3.json("./data/miserables.json").then(graph => {
@@ -126,8 +126,8 @@ d3.json("./data/miserables.json").then(graph => {
       eventConfig["Node Moved"].regularGlyph = NodeMoved({size: 16*(iconSize/100)});
       eventConfig["Node Moved"].bundleGlyph = NodeMoved({size: 22*(iconSize/100), fill: "#2185d0"});
 
-      regularCircleRadius = 5*(iconSize/100);
-      backboneCircleRadius = 5*(iconSize/100);
+      regularCircleRadius = 7*(iconSize/100);
+      backboneCircleRadius = 7*(iconSize/100);
 
       //console.log(eventConfig["Selected Bar"].backboneGlyph);
       //console.log(size);
