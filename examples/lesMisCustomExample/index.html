@@ -130,7 +130,7 @@
       text-align:left;
       font-size:16px;
       position:relative;
-      top:-30px;
+      top:-20px;
       font-weight: bold;
       left:10px;
     }
@@ -206,7 +206,7 @@
     }
 
     /* The slider itself */
-    .slider {
+    .sliderbar {
       -webkit-appearance: none;  /* Override default CSS styles */
       appearance: none;
       width: 100%; /* Full-width */
@@ -219,23 +219,25 @@
     }
 
     /* Mouse-over effects */
-    .slider:hover {
+    .sliderbar:hover {
       opacity: 1; /* Fully shown on mouse-over */
     }
 
     /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-    .slider::-webkit-slider-thumb {
+    .sliderbar::-webkit-slider-thumb {
       -webkit-appearance: none; /* Override default look */
       appearance: none;
       width: 25px; /* Set a specific slider handle width */
       height: 25px; /* Slider handle height */
+      border-radius: 50%;
       background: #2185d0; /* Green background */
-      cursor: pointer; /* Cursor on hover */
+      cursor: pointer;/* Cursor on hover */
     }
 
-    .slider::-moz-range-thumb {
+    .sliderbar::-moz-range-thumb {
       width: 25px; /* Set a specific slider handle width */
       height: 25px; /* Slider handle height */
+      border-radius: 50%;
       background: #4CAF50; /* Green background */
       cursor: pointer; /* Cursor on hover */
     }
@@ -277,11 +279,13 @@
     </label>
     </div>
 
-    <div id="sliderText" class="slidecontainer"> Icon Size
-    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-  </div>
+    <div id="sliderText">
+      <div class="slidecontainer"> Icon Size
+        <input type="range" min="1" max="100" value="50" class="sliderbar" id="slider">
+      </div>
+    </div>
 
-    <!-- <main id = "main" class="container"> -->
+  <!-- <main id = "main" class="container"> -->
       <div id="force-directed";>
         <div class = "border">
           <svg width = "700" height = "800" id = 'viz'></svg>

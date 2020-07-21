@@ -44,7 +44,7 @@ let initialState: NodeState = {
 type EventTypes = "Selected Bar" | "Selected Node" | "Node Moved"
 
 //
- const eventConfig: EventConfig<EventTypes> = {
+let eventConfig: EventConfig<EventTypes> = {
    "Selected Bar": {
      backboneGlyph: SelectedBar({size: 22}),
      currentGlyph: SelectedBar({size: 22, fill: "#2185d0"}),
@@ -66,7 +66,11 @@ type EventTypes = "Selected Bar" | "Selected Node" | "Node Moved"
  };
 
  let labels = false;
- let size = 1;
+ let iconSize = 1;
+
+ let regularCircleRadius = 5;
+ let backboneCircleRadius = 5;
+
 
 d3.json("./data/miserables.json").then(graph => {
   let simulation = runSimulation(graph);
@@ -91,12 +95,45 @@ d3.json("./data/miserables.json").then(graph => {
 
   //update prov vis when toggle gets changed
   let toggle = d3.select("#toggle");
+
   toggle.on("change", function(){
       labels = toggle.property("checked");
-      console.log(labels);
+      provVisUpdate();
+
+      //console.log(labels);
     });
 
-  provVisUpdate();
+  //update prov vis when slide bar gets moved
+  let slider = d3.select("#slider");
+
+  slider.on('input', function() {
+      iconSize = slider.property("value");
+
+      //adjust size of icons on all glyphs
+      eventConfig["Selected Bar"].backboneGlyph = SelectedBar({size: 22*(iconSize/100)});
+      eventConfig["Selected Bar"].currentGlyph = SelectedBar({size: 22*(iconSize/100), fill: "#2185d0"});
+      eventConfig["Selected Bar"].regularGlyph = SelectedBar({size: 16*(iconSize/100)});
+      eventConfig["Selected Bar"].bundleGlyph = SelectedBar({size: 22*(iconSize/100), fill: "#2185d0"});
+
+      eventConfig["Selected Node"].backboneGlyph = SelectedNode({size: 22*(iconSize/100)});
+      eventConfig["Selected Node"].currentGlyph = SelectedNode({size: 22*(iconSize/100), fill: "#2185d0"});
+      eventConfig["Selected Node"].regularGlyph = SelectedNode({size: 16*(iconSize/100)});
+      eventConfig["Selected Node"].bundleGlyph = SelectedNode({size: 22*(iconSize/100), fill: "#2185d0"});
+
+      eventConfig["Node Moved"].backboneGlyph = NodeMoved({size: 22*(iconSize/100)});
+      eventConfig["Node Moved"].currentGlyph = NodeMoved({size: 22*(iconSize/100), fill: "#2185d0"});
+      eventConfig["Node Moved"].regularGlyph = NodeMoved({size: 16*(iconSize/100)});
+      eventConfig["Node Moved"].bundleGlyph = NodeMoved({size: 22*(iconSize/100), fill: "#2185d0"});
+
+      regularCircleRadius = 5*(iconSize/100);
+      backboneCircleRadius = 5*(iconSize/100);
+
+      //console.log(eventConfig["Selected Bar"].backboneGlyph);
+      //console.log(size);
+      provVisUpdate();
+  });
+
+
 
 
 
@@ -113,8 +150,6 @@ d3.json("./data/miserables.json").then(graph => {
         return state;
       }
     );
-
-
 
     action.addEventType(currData.id ? "Selected Bar" : "Selected Node")
           .applyAction();
@@ -196,7 +231,8 @@ d3.json("./data/miserables.json").then(graph => {
   }
 
   function provVisUpdate()
-  {
+  { console.log(regularCircleRadius);
+    console.log(backboneCircleRadius);
     ProvVisCreator(
       document.getElementById("provDiv")!,
       provenance,
@@ -204,7 +240,8 @@ d3.json("./data/miserables.json").then(graph => {
       false,
       false,
       undefined,
-      {eventConfig: eventConfig, labels: labels, size: size});
+      {eventConfig: eventConfig, regularCircleRadius: regularCircleRadius, backboneCircleRadius: backboneCircleRadius,
+          labels: labels, iconSize: iconSize});
 
   }
 

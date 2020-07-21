@@ -9,7 +9,7 @@ import { Provenance, ProvenanceGraph, NodeID } from '@visdesignlab/provenance-li
 export interface ProvVisConfig {
   eventConfig: EventConfig<any>;
   labels: boolean;
-  size: number;
+  iconSize: number;
   height: number;
   width: number;
   sideOffset: number;
