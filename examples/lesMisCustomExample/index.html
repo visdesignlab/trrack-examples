@@ -122,27 +122,29 @@
       text-align:right;
       font-size:16px;
       position:relative;
-      top:-40px;
+      top:-25px;
       font-weight: bold;
+
     }
 
     #sliderText{
-      text-align:left;
+      text-align:right;
       font-size:16px;
       position:relative;
       top:-20px;
       font-weight: bold;
-      left:10px;
     }
 
     /* The switch - the box around the slider */
     .switch {
       position: relative;
       display: inline-block;
+
       width: 50px;
       height: 22px;
-      margin-right: 20px;
-      margin-top:8px;
+      margin-right:30px;
+      top: -3px;
+
     }
 
     /* Hide default HTML checkbox */
@@ -177,12 +179,13 @@
       transition: .4s;
     }
 
+
     input:checked + .slider {
-      background-color: #2196F3;
+      background-color: #2185d0;
     }
 
     input:focus + .slider {
-      box-shadow: 0 0 1px #2196F3;
+      box-shadow: 0 0 1px #2185d0;
     }
 
     input:checked + .slider:before {
@@ -202,20 +205,23 @@
 
     .slidecontainer {
       float:right;
-      width: 20%; /* Width of the outside container */
+      margin-right:30px;
+      position: relative;
+      display: inline-block;
     }
+
 
     /* The slider itself */
     .sliderbar {
       -webkit-appearance: none;  /* Override default CSS styles */
       appearance: none;
-      width: 100%; /* Full-width */
-      height: 25px; /* Specified height */
-      background: #d3d3d3; /* Grey background */
+      width: 65%%; /* Full-width */
+      height: 15px; /* Specified height */
+      background: #ccc; /* Grey background */
       outline: none; /* Remove outline */
-      opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-      -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-      transition: opacity .2s;
+      border-radius: 10px;
+
+
     }
 
     /* Mouse-over effects */
@@ -227,18 +233,18 @@
     .sliderbar::-webkit-slider-thumb {
       -webkit-appearance: none; /* Override default look */
       appearance: none;
-      width: 25px; /* Set a specific slider handle width */
-      height: 25px; /* Slider handle height */
-      border-radius: 50%;
+      width: 22px; /* Set a specific slider handle width */
+      height: 22px; /* Slider handle height */
       background: #2185d0; /* Green background */
       cursor: pointer;/* Cursor on hover */
+      border-radius: 50%;
     }
 
     .sliderbar::-moz-range-thumb {
       width: 25px; /* Set a specific slider handle width */
       height: 25px; /* Slider handle height */
       border-radius: 50%;
-      background: #4CAF50; /* Green background */
+      background: #ccc; /* Green background */
       cursor: pointer; /* Cursor on hover */
     }
 
@@ -264,6 +270,10 @@
       max-height: 1050px;
     }
 
+    .customcontainer{
+      width: 100%;
+    }
+
 
     </style>
     <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -272,18 +282,21 @@
     <div id = "headerDiv"> Les Misérables Character Co-Occurence</div>
     <div id="buttons"></div>
 
-    <div id="buttonText"> Icons Only
-    <label class="switch">
-      <input type="checkbox" id="toggle">
-        <span class="slider round"></span>
-    </label>
+    <div class="customcontainer">
+      <div id="buttonText"> Icons Only
+      <label class="switch">
+        <input type="checkbox" id="toggle">
+          <span class="slider round"></span>
+      </label>
     </div>
 
-    <div id="sliderText">
-      <div class="slidecontainer"> Icon Size
-        <input type="range" min="1" max="100" value="50" class="sliderbar" id="slider">
+      <div id="sliderText" > Icon Size
+        <div class="slidecontainer">
+          <input type="range" min="1" max="100" value="50" class="sliderbar" id="slider">
+        </div>
       </div>
-    </div>
+      </div>
+
 
   <!-- <main id = "main" class="container"> -->
       <div id="force-directed";>
