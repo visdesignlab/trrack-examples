@@ -64,21 +64,24 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<a href="#provenance-library" id="provenance-library" style="color: inherit; text-decoration: none;">
-					<h1>Provenance Library</h1>
+				<a href="#trrack-library" id="trrack-library" style="color: inherit; text-decoration: none;">
+					<h1>Trrack Library</h1>
 				</a>
-				<p>A library to create and track provenance in web based apps.</p>
+				<p>A library to create and track provenance in web based apps. Trrack allows you to create and maintain a non linear provenance graph representing the history of the state of your visualization. Through this graph, you can easily implement complete action recovery, as well as store custom metadata and annotations.</p>
+				<p>Trrack also allows for easy sharing of a visualization&#39;s current state through URL sharing. To share entire session history, Trrack allows for the import and exporting of provenance graphs, as well as has built in integration with firebase to store the graphs. </p>
 				<p><a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square" alt="code style: prettier"></a>
 					<a href="https://travis-ci.com/visdesignlab/provenance-lib-core"><img src="https://travis-ci.com/visdesignlab/provenance-lib-core.svg?branch=master" alt="Build Status"></a>
 				<a href="https://coveralls.io/github/visdesignlab/provenance-lib-core?branch=master"><img src="https://coveralls.io/repos/github/visdesignlab/provenance-lib-core/badge.svg?branch=master" alt="Coverage Status"></a></p>
-				<p>For documenation, see src/Interfaces/Provenance.ts, as well as src/Interfaces/ActionObject.ts</p>
+				<p>For full documentation, see <a href="http://vdl.sci.utah.edu/trrack-examples/api/trrack">http://vdl.sci.utah.edu/trrack-examples/api/trrack</a></p>
 				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
 					<h2>Features</h2>
 				</a>
 				<ul>
-					<li>Power you application to track user interactions or changes.</li>
-					<li>Enable undo/redo functionality.</li>
-					<li>Track changes in non-linear manner with branches.</li>
+					<li>Power you application to track user interactions or changes</li>
+					<li>Enable undo/redo functionality</li>
+					<li>Track changes in non-linear manner with branches</li>
+					<li>Add custom metadata and annotations to each node in the graph</li>
+					<li>Built in Firebase support for storing large graphs</li>
 					<li>Simple API</li>
 					<li>Full Typescript support</li>
 				</ul>
@@ -88,15 +91,15 @@
 				<ul>
 					<li>NPM</li>
 				</ul>
-				<pre><code class="language-bash">npm install --save-dev @visdesignlab/provenance-lib-core</code></pre>
+				<pre><code class="language-bash">npm install --save-dev @visdesignlab/trrack</code></pre>
 				<ul>
 					<li>Yarn</li>
 				</ul>
-				<pre><code class="language-bash">yarn add @visdesignlab/provenance-lib-core</code></pre>
+				<pre><code class="language-bash">yarn add @visdesignlab/trrack</code></pre>
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
 				</a>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { initProvenance, Provenance, ProvenanceGraph } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@visdesignlab/provenance-lib-core&#x27;</span>;
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { initProvenance, Provenance, ProvenanceGraph } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@visdesignlab/trrack&#x27;</span>;
 
 <span class="hljs-comment">// ************************************************</span>
 <span class="hljs-comment">// Setup all the interfaces and types</span>
@@ -183,14 +186,19 @@ provenance.done();
 <span class="hljs-comment">// It takes in multiple arguments. The first two are required.</span>
 <span class="hljs-comment">// First is the label describing the event, second is the function. This can be anonymous function.</span>
 <span class="hljs-comment">// Third is optional parameters which will be passed to the function passed as second arguments.</span>
-provenance.applyAction(<span class="hljs-string">&#x27;Changing dataset&#x27;</span>, changeDataset, [<span class="hljs-string">&#x27;/path/to/new/dataset&#x27;</span>]);</code></pre>
+<span class="hljs-keyword">let</span> action = provenance.addAction(<span class="hljs-string">&#x27;Changing dataset&#x27;</span>, changeDataset);
+
+action
+  .addArgs(<span class="hljs-string">&#x27;/path/to/new/dataset&#x27;</span>)
+  .applyAction();
+</code></pre>
 				<a href="#development" id="development" style="color: inherit; text-decoration: none;">
 					<h2>Development</h2>
 				</a>
 				<a href="#clone-the-repository" id="clone-the-repository" style="color: inherit; text-decoration: none;">
 					<h3>Clone the repository</h3>
 				</a>
-				<pre><code class="language-bash">git <span class="hljs-built_in">clone</span> git@github.com:visdesignlab/provenance-lib-core.git</code></pre>
+				<pre><code class="language-bash">git <span class="hljs-built_in">clone</span> git@github.com:visdesignlab/trrack.git</code></pre>
 				<a href="#use-npm-commands" id="use-npm-commands" style="color: inherit; text-decoration: none;">
 					<h3>Use npm commands</h3>
 				</a>
@@ -211,8 +219,8 @@ provenance.applyAction(<span class="hljs-string">&#x27;Changing dataset&#x27;</s
 					<h2>Other provenance related projects</h2>
 				</a>
 				<p><a href="https://github.com/visdesignlab/provenance-lib-core-demo">Example</a> application using provenance. Also demonstrates how to import and export the current state of an application.</p>
-				<p><a href="https://github.com/visdesignlab/provenance-examples">More Examples</a> using provenance with typescript and d3.</p>
-				<p><a href="https://github.com/visdesignlab/ProvVis">ProvVis</a> is a library for visualizing the provenance graph created from this library.</p>
+				<p><a href="https://github.com/visdesignlab/trrack-examples">More Examples</a> using provenance with typescript and d3.</p>
+				<p><a href="https://github.com/visdesignlab/trrack-vis">trrack-vis</a> is a library for visualizing the provenance graph created from this library.</p>
 				<p><a href="https://github.com/visdesignlab/intent-system">Intent System</a> is a tool for predicting user intent patterns when brushing in scatterplots. The intent system utilizes the provenance library to control all interaction, as well as the ProvVis library to visualize the resulting provenance graph.</p>
 			</div>
 		</div>
