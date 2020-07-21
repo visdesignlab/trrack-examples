@@ -1,0 +1,396 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@visdesignlab/trrack</title>
+	<meta name="description" content="Documentation for @visdesignlab/trrack">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@visdesignlab/trrack</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1>@visdesignlab/trrack</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#provenance-library" id="provenance-library" style="color: inherit; text-decoration: none;">
+					<h1>Provenance Library</h1>
+				</a>
+				<p>A library to create and track provenance in web based apps.</p>
+				<p><a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square" alt="code style: prettier"></a>
+					<a href="https://travis-ci.com/visdesignlab/provenance-lib-core"><img src="https://travis-ci.com/visdesignlab/provenance-lib-core.svg?branch=master" alt="Build Status"></a>
+				<a href="https://coveralls.io/github/visdesignlab/provenance-lib-core?branch=master"><img src="https://coveralls.io/repos/github/visdesignlab/provenance-lib-core/badge.svg?branch=master" alt="Coverage Status"></a></p>
+				<p>For documenation, see src/Interfaces/Provenance.ts, as well as src/Interfaces/ActionObject.ts</p>
+				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
+					<h2>Features</h2>
+				</a>
+				<ul>
+					<li>Power you application to track user interactions or changes.</li>
+					<li>Enable undo/redo functionality.</li>
+					<li>Track changes in non-linear manner with branches.</li>
+					<li>Simple API</li>
+					<li>Full Typescript support</li>
+				</ul>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h2>Installation</h2>
+				</a>
+				<ul>
+					<li>NPM</li>
+				</ul>
+				<pre><code class="language-bash">npm install --save-dev @visdesignlab/provenance-lib-core</code></pre>
+				<ul>
+					<li>Yarn</li>
+				</ul>
+				<pre><code class="language-bash">yarn add @visdesignlab/provenance-lib-core</code></pre>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { initProvenance, Provenance, ProvenanceGraph } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@visdesignlab/provenance-lib-core&#x27;</span>;
+
+<span class="hljs-comment">// ************************************************</span>
+<span class="hljs-comment">// Setup all the interfaces and types</span>
+
+<span class="hljs-built_in">enum</span> SortByOptions {
+  PETAL_LENGTH = <span class="hljs-string">&#x27;PETAL_LENGTH&#x27;</span>,
+  PETAL_WIDTH = <span class="hljs-string">&#x27;PETAL_WIDTH&#x27;</span>,
+  SEPAL_LENGTH = <span class="hljs-string">&#x27;SEPAL_LENGTH&#x27;</span>,
+  SEPAL_WIDTH = <span class="hljs-string">&#x27;SEPAL_WIDTH&#x27;</span>
+}
+
+<span class="hljs-built_in">enum</span> SortDirection {
+  ASCENDING = <span class="hljs-string">&#x27;ASCENDING&#x27;</span>,
+  DESCENDING = <span class="hljs-string">&#x27;DESCENDING&#x27;</span>
+}
+
+<span class="hljs-comment">// This is the interface which defines the state of your application. Instance of this interface will be tracked</span>
+<span class="hljs-keyword">interface</span> ApplicationState {
+  irisDatasetPath: <span class="hljs-built_in">string</span>;
+  sortConfig: {
+    sortBy: SortByOptions;
+    sortDirection: SortDirection;
+  };
+}
+
+<span class="hljs-comment">// The instance of the ApplicationState which will be tracked. This is also the root state in Provenance Graph</span>
+<span class="hljs-keyword">const</span> initialState = {
+  irisDatasetPath: <span class="hljs-string">&#x27;/path/to/dataset/iris.csv&#x27;</span>,
+  sortConfig: {
+    sortBy: SortByOptions.PETAL_LENGTH,
+    sortDirection: SortDirection.ASCENDING
+  }
+};
+
+<span class="hljs-comment">// Initialize provenance tracking by passing root state.</span>
+<span class="hljs-keyword">const</span> provenance = initProvenance(initialState);
+
+<span class="hljs-comment">// Add observers to do something on state change.</span>
+
+provenance.addObserver([<span class="hljs-string">&#x27;irisDatasetPath&#x27;</span>], <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-comment">// Dataset changed, do something</span>
+});
+
+provenance.addObserver([<span class="hljs-string">&#x27;sortConfig&#x27;</span>, <span class="hljs-string">&#x27;sortDirection&#x27;</span>], <span class="hljs-function">(<span class="hljs-params">state?: ApplicationState</span>) =&gt;</span> {
+  <span class="hljs-comment">// Sort direction changed, do something</span>
+});
+
+provenance.addObserver([<span class="hljs-string">&#x27;sortConfig&#x27;</span>, <span class="hljs-string">&#x27;sortBy&#x27;</span>], <span class="hljs-function">(<span class="hljs-params">state?: ApplicationState</span>) =&gt;</span> {
+  <span class="hljs-comment">// Sort by attribute changed, do something</span>
+});
+
+<span class="hljs-comment">// Call this when all the observers are defined.</span>
+<span class="hljs-comment">// This is optional and only used when you want to enable sharing and loading states from URL.</span>
+<span class="hljs-comment">// Refere documentation for advanced usage scenario.</span>
+provenance.done();
+
+<span class="hljs-comment">// Define actions to change various states. This can be as granular or coarse as you wish.</span>
+<span class="hljs-comment">// The state here will be the current state which provenance passes in.</span>
+<span class="hljs-keyword">const</span> changeSortDirection: ActionFunction&lt;ApplicationState&gt; = <span class="hljs-function">(<span class="hljs-params">
+  state: ApplicationState,
+  sortDirection: SortDirection
+</span>) =&gt;</span> {
+  state.sortConfig.sortDirection = sortDirection;
+  <span class="hljs-keyword">return</span> state;
+};
+
+<span class="hljs-keyword">const</span> changeSortByAttribute: ActionFunction&lt;ApplicationState&gt; = <span class="hljs-function">(<span class="hljs-params">
+  state: ApplicationState,
+  sortBy: SortByOptions
+</span>) =&gt;</span> {
+  state.sortConfig.sortBy = sortBy;
+  <span class="hljs-keyword">return</span> state;
+};
+
+<span class="hljs-keyword">const</span> changeDataset: ActionFunction&lt;ApplicationState&gt; = <span class="hljs-function">(<span class="hljs-params">
+  state: ApplicationState,
+  newFilePath: <span class="hljs-built_in">string</span>
+</span>) =&gt;</span> {
+  state.irisDatasetPath = newFilePath;
+  <span class="hljs-keyword">return</span> state;
+};
+
+<span class="hljs-comment">// Then apply the above actions as needed using applyAction method.</span>
+<span class="hljs-comment">// It takes in multiple arguments. The first two are required.</span>
+<span class="hljs-comment">// First is the label describing the event, second is the function. This can be anonymous function.</span>
+<span class="hljs-comment">// Third is optional parameters which will be passed to the function passed as second arguments.</span>
+provenance.applyAction(<span class="hljs-string">&#x27;Changing dataset&#x27;</span>, changeDataset, [<span class="hljs-string">&#x27;/path/to/new/dataset&#x27;</span>]);</code></pre>
+				<a href="#development" id="development" style="color: inherit; text-decoration: none;">
+					<h2>Development</h2>
+				</a>
+				<a href="#clone-the-repository" id="clone-the-repository" style="color: inherit; text-decoration: none;">
+					<h3>Clone the repository</h3>
+				</a>
+				<pre><code class="language-bash">git <span class="hljs-built_in">clone</span> git@github.com:visdesignlab/provenance-lib-core.git</code></pre>
+				<a href="#use-npm-commands" id="use-npm-commands" style="color: inherit; text-decoration: none;">
+					<h3>Use npm commands</h3>
+				</a>
+				<ul>
+					<li><code>npm t</code>: Run test suite</li>
+					<li><code>npm start</code>: Run <code>npm run build</code> in watch mode</li>
+					<li><code>npm run test:watch</code>: Run test suite in <a href="http://facebook.github.io/jest/docs/cli.html#watch">interactive watch mode</a></li>
+					<li><code>npm run test:prod</code>: Run linting and generate coverage</li>
+					<li><code>npm run build</code>: Generate bundles and typings, create docs</li>
+					<li><code>npm run lint</code>: Lints code</li>
+					<li><code>npm run commit</code>: Commit using conventional commit style (<a href="https://github.com/typicode/husky">husky</a> will tell you to use it if you haven&#39;t :wink:)</li>
+				</ul>
+				<a href="#resources" id="resources" style="color: inherit; text-decoration: none;">
+					<h2>Resources</h2>
+				</a>
+				<p>Project created using <a href="https://github.com/alexjoverm/typescript-library-starter">Typescript library starter</a> by <a href="https://github.com/alexjoverm/">alexjoverm</a></p>
+				<a href="#other-provenance-related-projects" id="other-provenance-related-projects" style="color: inherit; text-decoration: none;">
+					<h2>Other provenance related projects</h2>
+				</a>
+				<p><a href="https://github.com/visdesignlab/provenance-lib-core-demo">Example</a> application using provenance. Also demonstrates how to import and export the current state of an application.</p>
+				<p><a href="https://github.com/visdesignlab/provenance-examples">More Examples</a> using provenance with typescript and d3.</p>
+				<p><a href="https://github.com/visdesignlab/ProvVis">ProvVis</a> is a library for visualizing the provenance graph created from this library.</p>
+				<p><a href="https://github.com/visdesignlab/intent-system">Intent System</a> is a tool for predicting user intent patterns when brushing in scatterplots. The intent system utilizes the provenance library to control all interaction, as well as the ProvVis library to visualize the resulting provenance graph.</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/action.html" class="tsd-kind-icon">Action</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/artifacts.html" class="tsd-kind-icon">Artifacts</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/basenode.html" class="tsd-kind-icon">Base<wbr>Node</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/childnode.html" class="tsd-kind-icon">Child<wbr>Node</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/diffanyprops.html" class="tsd-kind-icon">Diff<wbr>Any<wbr>Props</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/diffnode.html" class="tsd-kind-icon">Diff<wbr>Node</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/eventmanager.html" class="tsd-kind-icon">Event<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/extra.html" class="tsd-kind-icon">Extra</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/nodemetadata.html" class="tsd-kind-icon">Node<wbr>Metadata</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/provenance.html" class="tsd-kind-icon">Provenance</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/provenancegraph.html" class="tsd-kind-icon">Provenance<wbr>Graph</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/rootnode.html" class="tsd-kind-icon">Root<wbr>Node</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/statenode.html" class="tsd-kind-icon">State<wbr>Node</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#actionfunction" class="tsd-kind-icon">Action<wbr>Function</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#artifactsubscriberfunction" class="tsd-kind-icon">Artifact<wbr>Subscriber<wbr>Function</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#currentnode" class="tsd-kind-icon">Current<wbr>Node</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#diff" class="tsd-kind-icon">Diff</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#exportedstate" class="tsd-kind-icon">Exported<wbr>State</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#loggingparams" class="tsd-kind-icon">Logging<wbr>Params</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#nodeid" class="tsd-kind-icon">NodeID</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#nodes" class="tsd-kind-icon">Nodes</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#provenancenode" class="tsd-kind-icon">Provenance<wbr>Node</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#subscriberfunction" class="tsd-kind-icon">Subscriber<wbr>Function</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#artifact" class="tsd-kind-icon">ARTIFACT</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#global" class="tsd-kind-icon">GLOBAL</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#applychange" class="tsd-kind-icon">apply<wbr>Change</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#compresstoencodeduricomponent" class="tsd-kind-icon">compress<wbr>ToEncodedURIComponent</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#decompressfromencodeduricomponent" class="tsd-kind-icon">decompress<wbr>From<wbr>EncodedURIComponent</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#diff" class="tsd-kind-icon">diff</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#addannotationtonode" class="tsd-kind-icon">add<wbr>Annotation<wbr>ToNode</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#addextratonodeartifact" class="tsd-kind-icon">add<wbr>Extra<wbr>ToNode<wbr>Artifact</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#applyactionfunction" class="tsd-kind-icon">apply<wbr>Action<wbr>Function</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#createprovenancegraph" class="tsd-kind-icon">create<wbr>Provenance<wbr>Graph</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#deepcopy" class="tsd-kind-icon">deep<wbr>Copy</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#deepdiff" class="tsd-kind-icon">deep<wbr>Diff</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#generatetimestamp" class="tsd-kind-icon">generate<wbr>Time<wbr>Stamp</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#generateuuid" class="tsd-kind-icon">generateUUID</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#getextrafromartifact" class="tsd-kind-icon">get<wbr>Extra<wbr>From<wbr>Artifact</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#gotonode" class="tsd-kind-icon">go<wbr>ToNode</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#importstate" class="tsd-kind-icon">import<wbr>State</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#initeventmanager" class="tsd-kind-icon">init<wbr>Event<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#initprovenance" class="tsd-kind-icon">init<wbr>Provenance</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#initializefirebase" class="tsd-kind-icon">initialize<wbr>Firebase</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#ischildnode" class="tsd-kind-icon">is<wbr>Child<wbr>Node</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#isdiffnode" class="tsd-kind-icon">is<wbr>Diff<wbr>Node</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#isstatenode" class="tsd-kind-icon">is<wbr>State<wbr>Node</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#logtofirebase" class="tsd-kind-icon">log<wbr>ToFirebase</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
