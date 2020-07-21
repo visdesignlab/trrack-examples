@@ -98,6 +98,7 @@ d3.json("./data/miserables.json").then(graph => {
 
   toggle.on("change", function(){
       labels = toggle.property("checked");
+
       provVisUpdate();
 
       //console.log(labels);
@@ -241,7 +242,7 @@ d3.json("./data/miserables.json").then(graph => {
       false,
       undefined,
       {eventConfig: eventConfig, regularCircleRadius: regularCircleRadius, backboneCircleRadius: backboneCircleRadius,
-          labels: labels, iconSize: iconSize});
+          iconOnly: labels, iconSize: iconSize});
 
   }
 

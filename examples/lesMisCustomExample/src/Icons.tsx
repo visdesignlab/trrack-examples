@@ -25,7 +25,7 @@ export function SelectedBar({ size = 15, fill = "#ccc" }: AddTaskGlyphProps) {
           dominantBaseline="middle"
           fontFamily="FontAwesome"
         >
-          &#xf14e;
+          &#xf05b;
         </text>
       </g>
     </g>
@@ -45,7 +45,7 @@ export function SelectedNode({ size = 15, fill = "#ccc" }: AddTaskGlyphProps) {
           dominantBaseline="middle"
           fontFamily="FontAwesome"
         >
-          &#xf508;
+          &#xf13d;
         </text>
       </g>
     </g>
@@ -65,7 +65,7 @@ export function NodeMoved({ size = 15, fill = "#ccc" }: AddTaskGlyphProps) {
           dominantBaseline="middle"
           fontFamily="FontAwesome"
         >
-          &#xf784;
+          &#xf1b9;
         </text>
       </g>
     </g>
