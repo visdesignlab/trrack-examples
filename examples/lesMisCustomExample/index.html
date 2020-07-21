@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    <title>Examples</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+  </head>
+  <body>
+    <style>
+
+    body {
+      margin-top:80px;
+    }
+
+    /* text{
+      font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    } */
+
+    .descriptionRect{
+      fill:none;
+      stroke:black;
+      stroke-width:2px;
+    }
+
+    .activeButton{
+      cursor: pointer;
+    }
+
+    .inactiveButton{
+      pointer-events: none;
+      opacity: .5;
+    }
+
+    .provNode circle{
+      r:10;
+      stroke: #333333;
+      stroke-width: 1px;
+    }
+
+    .provNodeSelected circle{
+      stroke-width: 3px;
+    }
+
+
+    .provNodeSelected rect{
+      fill: lightgray;
+    }
+
+    .link{
+      fill: none;
+      stroke: #ccc;
+      stroke-width: 2px;
+    }
+    .links line{
+      stroke: #999;
+      stroke-opacity: 0.6;
+    }
+    .nodes {
+      r:5;
+      stroke: #fff;
+      stroke-width: 1.5px;
+    }
+    .nodeEdges{
+      r:5;
+      stroke: black;
+      stroke-width: 2px;
+    }
+    .hoverNode{
+      r:8;
+    }
+    .selectedNode{
+      r:10;
+    }
+    .bar{
+      fill: lightgray;
+    }
+
+    .barHover{
+      fill: green;
+    }
+    .barSelected{
+      fill: blue;
+    }
+    svg {
+      /* border: 1px solid black; */
+    }
+
+    #force-directed{
+      display: inline-grid;
+      height:100%;
+      grid-template-columns: 40% 40% 15%;
+      gap: 2rem 2rem;
+      margin:auto;
+    }
+    main {
+      width:100%;
+      height:610px;
+      flex: 0 0 auto;
+      margin: auto;
+    }
+    #headerDiv{
+      text-align:center;
+      font-size:40px;
+      position:relative;
+      top:-60px;
+    }
+
+    .clusterGroup circle{
+      fill:gold;
+    }
+
+    #buttons{
+      display: flex;
+      justify-content: center;
+      position:relative;
+
+      top: -50px;
+      margin-bottom: 0px;
+    }
+
+    #buttonText{
+      text-align:right;
+      font-size:16px;
+      position:relative;
+      top:-40px;
+      font-weight: bold;
+    }
+
+    #sliderText{
+      text-align:left;
+      font-size:16px;
+      position:relative;
+      top:-30px;
+      font-weight: bold;
+      left:10px;
+    }
+
+    /* The switch - the box around the slider */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 22px;
+      margin-right: 20px;
+      margin-top:8px;
+    }
+
+    /* Hide default HTML checkbox */
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    /* The slider */
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 2px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+
+    .slidecontainer {
+      float:right;
+      width: 20%; /* Width of the outside container */
+    }
+
+    /* The slider itself */
+    .slider {
+      -webkit-appearance: none;  /* Override default CSS styles */
+      appearance: none;
+      width: 100%; /* Full-width */
+      height: 25px; /* Specified height */
+      background: #d3d3d3; /* Grey background */
+      outline: none; /* Remove outline */
+      opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+      -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+      transition: opacity .2s;
+    }
+
+    /* Mouse-over effects */
+    .slider:hover {
+      opacity: 1; /* Fully shown on mouse-over */
+    }
+
+    /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none; /* Override default look */
+      appearance: none;
+      width: 25px; /* Set a specific slider handle width */
+      height: 25px; /* Slider handle height */
+      background: #2185d0; /* Green background */
+      cursor: pointer; /* Cursor on hover */
+    }
+
+    .slider::-moz-range-thumb {
+      width: 25px; /* Set a specific slider handle width */
+      height: 25px; /* Slider handle height */
+      background: #4CAF50; /* Green background */
+      cursor: pointer; /* Cursor on hover */
+    }
+
+
+
+
+    /* svg{
+      overflow-y:auto;
+      overflow-x:auto;
+    }
+
+    .overflowDiv{
+      overflow-y: auto;
+      overflow-x:auto;
+    } */
+
+    /* .border{
+      border: 1px solid black;
+    } */
+
+    .borderDiv{
+      overflow: hidden;
+      max-height: 1050px;
+    }
+
+
+    </style>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script>var exports = {};</script>
+
+    <div id = "headerDiv"> Les Misérables Character Co-Occurence</div>
+    <div id="buttons"></div>
+
+    <div id="buttonText"> Show Labels
+    <label class="switch">
+      <input type="checkbox" id="toggle">
+        <span class="slider round"></span>
+    </label>
+    </div>
+
+    <div id="sliderText" class="slidecontainer"> Icon Size
+    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+  </div>
+
+    <!-- <main id = "main" class="container"> -->
+      <div id="force-directed";>
+        <div class = "border">
+          <svg width = "700" height = "800" id = 'viz'></svg>
+        </div>
+        <div class = "border">
+          <svg width = "700" height = "800" id = 'bars'></svg>
+        </div>
+        <div class = "borderDiv" id = "provDiv">
+        </div>
+      </div>
+    <!-- </main> -->
+    <script type="module" src="./bundle.js"></script>
+  </body>
+</html>
