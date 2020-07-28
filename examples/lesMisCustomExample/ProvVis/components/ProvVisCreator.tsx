@@ -5,9 +5,12 @@ import UndoRedoButton from './UndoRedoButton';
 import {EventConfig} from '../Utils/EventConfig';
 
 import { Provenance, ProvenanceGraph, NodeID } from '@visdesignlab/provenance-lib-core';
+import { Bundle, BundleMap } from '../Utils/BundleMap';
+
 
 export interface ProvVisConfig {
   eventConfig: EventConfig<any>;
+  bundleMap: BundleMap;
   iconOnly: boolean;
   iconSize: number;
   height: number;

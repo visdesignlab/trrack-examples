@@ -174,19 +174,60 @@ d3.json("./data/miserables.json").then(graph => {
 
     let current = graph.nodes[graph.current];
 
-    const bundle: Bundle = {
+    //console.log(current.id);
+
+    let bundle: Bundle = {
       metadata: [],
       bundleLabel: "Grouped Nodes",
       bunchedNodes: [],
     };
 
-    while(true){
-      if(isChildNode(current)){
-        if(provenance.getExtraFromArtifact(current.id)[0]){
-          provenance.getExtraFromArtifact(current.id)[0].e.nodeGroup;
-          current = graph.nodes[current.parent];
+    let count = 0;
+    let first = true;
+
+    if(isChildNode(current)){
+      if(provenance.getExtraFromArtifact(current.id)[0]){
+        let num = provenance.getExtraFromArtifact(current.id)[0].e.nodeGroup;
+
+        while(true){
+          if(isChildNode(current)){
+            if(provenance.getExtraFromArtifact(current.id)[0]){
+
+              let currentNum = provenance.getExtraFromArtifact(current.id)[0].e.nodeGroup;
+              let parent = graph.nodes[current.parent];
+              current = parent;
+
+
+              //if they are equal, bundle and increment count
+              if(currentNum == num){
+                bundle.bunchedNodes.push(current.id);
+                count++;
+              }
+              else{
+                break;
+              }
+            }
+            else{
+              break;
+            }
+          }
+          else{
+            break;
+          }
         }
       }
+    }
+
+
+
+    //console.log(count);
+
+    if(count >= 3){
+      //bundle.bunchedNodes = toBunch.reverse();
+      //bundle.metadata = insightOnly;
+
+      map[current.id] = bundle;
+      //count = 0;
     }
 
   }
@@ -276,7 +317,7 @@ d3.json("./data/miserables.json").then(graph => {
       false,
       undefined,
       {eventConfig: eventConfig, regularCircleRadius: regularCircleRadius, backboneCircleRadius: backboneCircleRadius,
-          iconOnly: labels, iconSize: iconSize});
+          iconOnly: labels, iconSize: iconSize, bundleMap: map});
 
   }
 
