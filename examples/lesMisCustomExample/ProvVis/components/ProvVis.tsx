@@ -135,9 +135,8 @@ function ProvVis<T, S extends string, A>({
 
   if(bundleMap)
   {
-    list = list.concat(Object.keys(bundleMap).filter(d => bundleMap[d].metadata && bundleMap[d].metadata.includes(d)));
+    list = list.concat(Object.keys(bundleMap));
   }
-
 
   function setDefaultConfig<E extends string>(types:Set<string>): EventConfig<E> {
     let symbols = [
@@ -197,7 +196,7 @@ function ProvVis<T, S extends string, A>({
   }
 
 
-  const [expandedClusterList, setExpandedClusterList] = useState<string[]>(list);
+  const [expandedClusterList, setExpandedClusterList] = useState<string[]>(Object.keys(bundleMap));
 
   if(!eventConfig && eventTypes.size > 0 && eventTypes.size < 8)
   {

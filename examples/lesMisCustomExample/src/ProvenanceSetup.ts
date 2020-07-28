@@ -25,6 +25,7 @@ import
   Nodes,
   CurrentNode,
   Artifacts,
+  isChildNode,
   Extra
 } from '@visdesignlab/trrack';
 import Bars from "./FDBar"
@@ -55,19 +56,19 @@ let eventConfig: EventConfig<EventTypes> = {
      backboneGlyph: SelectedBar({size: 22}),
      currentGlyph: SelectedBar({size: 22, fill: "#2185d0"}),
      regularGlyph: SelectedBar({size: 16}),
-     bundleGlyph: SelectedBar({size: 22, fill: "#2185d0"})
+     bundleGlyph: SelectedBar({size: 22, fill: "#cccccc"})
    },
    "Selected Node": {
      backboneGlyph: SelectedNode({size: 22}),
      currentGlyph: SelectedNode({size: 22, fill: "#2185d0"}),
      regularGlyph: SelectedNode({size: 16}),
-     bundleGlyph: SelectedNode({size: 22, fill: "#2185d0"})
+     bundleGlyph: SelectedNode({size: 22, fill: "#cccccc"})
    },
    "Node Moved": {
      backboneGlyph: NodeMoved({size: 22}),
      currentGlyph: NodeMoved({size: 22, fill: "#2185d0"}),
      regularGlyph: NodeMoved({size: 16}),
-     bundleGlyph: NodeMoved({size: 22, fill: "#2185d0"})
+     bundleGlyph: NodeMoved({size: 22, fill: "#cccccc"})
    }
  };
 
@@ -121,17 +122,17 @@ d3.json("./data/miserables.json").then(graph => {
       eventConfig["Selected Bar"].backboneGlyph = SelectedBar({size: 22*(iconSize/100)});
       eventConfig["Selected Bar"].currentGlyph = SelectedBar({size: 22*(iconSize/100), fill: "#2185d0"});
       eventConfig["Selected Bar"].regularGlyph = SelectedBar({size: 16*(iconSize/100)});
-      eventConfig["Selected Bar"].bundleGlyph = SelectedBar({size: 22*(iconSize/100), fill: "#2185d0"});
+      eventConfig["Selected Bar"].bundleGlyph = SelectedBar({size: 22*(iconSize/100), fill: "#cccccc"});
 
       eventConfig["Selected Node"].backboneGlyph = SelectedNode({size: 22*(iconSize/100)});
       eventConfig["Selected Node"].currentGlyph = SelectedNode({size: 22*(iconSize/100), fill: "#2185d0"});
       eventConfig["Selected Node"].regularGlyph = SelectedNode({size: 16*(iconSize/100)});
-      eventConfig["Selected Node"].bundleGlyph = SelectedNode({size: 22*(iconSize/100), fill: "#2185d0"});
+      eventConfig["Selected Node"].bundleGlyph = SelectedNode({size: 22*(iconSize/100), fill: "#cccccc"});
 
       eventConfig["Node Moved"].backboneGlyph = NodeMoved({size: 22*(iconSize/100)});
       eventConfig["Node Moved"].currentGlyph = NodeMoved({size: 22*(iconSize/100), fill: "#2185d0"});
       eventConfig["Node Moved"].regularGlyph = NodeMoved({size: 16*(iconSize/100)});
-      eventConfig["Node Moved"].bundleGlyph = NodeMoved({size: 22*(iconSize/100), fill: "#2185d0"});
+      eventConfig["Node Moved"].bundleGlyph = NodeMoved({size: 22*(iconSize/100), fill: "#cccccc"});
 
       regularCircleRadius = 7*(iconSize/100);
       backboneCircleRadius = 7*(iconSize/100);
@@ -140,11 +141,6 @@ d3.json("./data/miserables.json").then(graph => {
       //console.log(size);
       provVisUpdate();
   });
-
-
-
-
-
 
   /**
   * Two callback functions where the actions are applied. Subsequently calls the observers, which
@@ -171,16 +167,14 @@ d3.json("./data/miserables.json").then(graph => {
     //console.log(currData.id ? currData.id : currData);
     //console.log(provenance.getExtraFromArtifact(graph.current)[0].e.nodeGroup);
 
-
-
+    console.log(map);
     //console.log(current.id);
 
     let bundle: Bundle = {
-      metadata: [],
+      metadata: [graph.current],
       bundleLabel: "Grouped Nodes",
       bunchedNodes: [],
     };
-
 
     // console.log("current node");
     // console.log(graph.current);
@@ -339,6 +333,7 @@ d3.json("./data/miserables.json").then(graph => {
         backboneCircleRadius: backboneCircleRadius,
         iconOnly: labels,
         iconSize: iconSize,
+        bundleMap: map,
         editAnnotations: true
       });
 
