@@ -5,6 +5,8 @@ import {
   SelectedNode,
   NodeMoved
 } from './Icons';
+import { Bundle, BundleMap } from '../ProvVis/Utils/BundleMap';
+
 
 import
 {
@@ -34,6 +36,10 @@ import { ProvVis, EventConfig, Config, ProvVisConfig, ProvVisCreator, UndoRedoBu
 export interface NodeState {
   nodeMap: {};
   selectedNode:string;
+};
+
+export interface NodeExtra {
+  nodeGroup: number;
 };
 
 let initialState: NodeState = {
@@ -71,6 +77,7 @@ let eventConfig: EventConfig<EventTypes> = {
  let regularCircleRadius = 7*(iconSize/100);
  let backboneCircleRadius = 7*(iconSize/100);
 
+ const map: BundleMap = {};
 
 d3.json("./data/miserables.json").then(graph => {
   let simulation = runSimulation(graph);
@@ -152,8 +159,95 @@ d3.json("./data/miserables.json").then(graph => {
       }
     );
 
-    action.addEventType(currData.id ? "Selected Bar" : "Selected Node")
+    action
+          .addEventType(currData.id ? "Selected Bar" : "Selected Node")
+          .addExtra({
+            nodeGroup: currData.group
+          })
           .applyAction();
+
+    let graph = provenance.graph();
+    let nodes = graph.nodes;
+    //console.log(currData.id ? currData.id : currData);
+    //console.log(provenance.getExtraFromArtifact(graph.current)[0].e.nodeGroup);
+
+
+
+    //console.log(current.id);
+
+    let bundle: Bundle = {
+      metadata: [],
+      bundleLabel: "Grouped Nodes",
+      bunchedNodes: [],
+    };
+
+
+    console.log("current node");
+    console.log(graph.current);
+
+    //first check if parent is different from current
+    let current = graph.nodes[graph.current];
+    let parent;
+    let count = 0;
+
+    //first make sure current is a child
+    if(isChildNode(current)){
+      if(provenance.getExtraFromArtifact(current.id)[0]){
+        let currentNum = provenance.getExtraFromArtifact(current.id)[0].e.nodeGroup;
+        let parent = graph.nodes[current.parent];
+
+        //make sure parent is a child
+        if(isChildNode(parent)){
+          if(provenance.getExtraFromArtifact(parent.id)[0]){
+              let parentNum = provenance.getExtraFromArtifact(parent.id)[0].e.nodeGroup;
+
+              //only loop if current is not the same as child
+              if(parentNum != currentNum){
+
+              current = parent;
+
+              while(true){
+                if(isChildNode(current)){
+                  if(provenance.getExtraFromArtifact(current.id)[0]){
+
+                      let currentNum = provenance.getExtraFromArtifact(current.id)[0].e.nodeGroup;
+                      let parent = graph.nodes[current.parent];
+
+                      //if they are equal, add to bundle and increment count
+                      if(currentNum == parentNum){
+                        bundle.bunchedNodes.push(current.id);
+                        count++;
+                      }
+                      else{
+                        break;
+                      }
+                      current = parent;
+
+                  }
+                  else{
+                      break;
+                  }
+                }
+                else{
+                    break;
+                }
+            }
+            }
+
+        }
+      }
+      }
+
+    }
+    console.log(count);
+    if(count >= 3){
+      map[current.children[0]] = bundle;
+    }
+
+    //console.log(count);
+
+
+
   }
 
   let dragEnded = function(d){
@@ -232,8 +326,7 @@ d3.json("./data/miserables.json").then(graph => {
   }
 
   function provVisUpdate()
-  { console.log(regularCircleRadius);
-    console.log(backboneCircleRadius);
+  {
     ProvVisCreator(
       document.getElementById("provDiv")!,
       provenance,
@@ -274,7 +367,7 @@ function setupProvenance(graph) : Provenance<NodeState, any, any>{
 
   initialState.nodeMap = dict;
 
-  const provenance = initProvenance(initialState);
+  const provenance = initProvenance<NodeState, EventTypes, NodeExtra>(initialState);
 
   return provenance;
 }
