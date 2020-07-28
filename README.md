@@ -32,6 +32,10 @@ This is a collection of examples for the [trrack](https://github.com/visdesignla
 
 - Using the provenance library to easily store nodes into a firebase realtime database
 
+## lesMisExampleCustomTrrackVis
+
+- Using the config object to customize trrack vis icons, icon size, and groups
+
 ## reactLesMisExample
 
 - Integrating provenance into a react based application
