@@ -1,0 +1,42 @@
+import { Provenance, NodeID, Nodes, ProvenanceNode, StateNode } from '@visdesignlab/provenance-lib-core';
+import { HierarchyNode } from 'd3';
+import { ReactChild } from 'react';
+import { BundleMap } from '../Utils/BundleMap';
+import { EventConfig } from '../Utils/EventConfig';
+interface ProvVisProps<T, S extends string, A> {
+    root: NodeID;
+    sideOffset?: number;
+    iconOnly?: boolean;
+    current: NodeID;
+    nodeMap: Nodes<T, S, A>;
+    backboneGutter?: number;
+    gutter?: number;
+    verticalSpace?: number;
+    annotationHeight?: number;
+    clusterVerticalSpace?: number;
+    regularCircleRadius?: number;
+    backboneCircleRadius?: number;
+    regularCircleStroke?: number;
+    backboneCircleStroke?: number;
+    topOffset?: number;
+    textSize?: number;
+    height?: number;
+    width?: number;
+    linkWidth?: number;
+    duration?: number;
+    clusterLabels?: boolean;
+    bundleMap?: BundleMap;
+    eventConfig?: EventConfig<S>;
+    changeCurrent?: (id: NodeID) => void;
+    popupContent?: (nodeId: StateNode<T, S, A>) => ReactChild;
+    annotationContent?: (nodeId: StateNode<T, S, A>) => ReactChild;
+    undoRedoButtons?: boolean;
+    prov?: Provenance<T, S, A>;
+    ephemeralUndo?: boolean;
+}
+export declare type StratifiedMap<T, S, A> = {
+    [key: string]: HierarchyNode<ProvenanceNode<T, S, A>>;
+};
+export declare type StratifiedList<T, S, A> = HierarchyNode<ProvenanceNode<T, S, A>>[];
+declare function ProvVis<T, S extends string, A>({ nodeMap, root, current, changeCurrent, width, height, iconOnly, gutter, backboneGutter, verticalSpace, annotationHeight, clusterVerticalSpace, regularCircleRadius, backboneCircleRadius, regularCircleStroke, backboneCircleStroke, sideOffset, topOffset, textSize, linkWidth, duration, clusterLabels, bundleMap, eventConfig, popupContent, annotationContent, undoRedoButtons, prov, ephemeralUndo }: ProvVisProps<T, S, A>): JSX.Element;
+export default ProvVis;
