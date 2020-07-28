@@ -182,8 +182,8 @@ d3.json("./data/miserables.json").then(graph => {
     };
 
 
-    console.log("current node");
-    console.log(graph.current);
+    // console.log("current node");
+    // console.log(graph.current);
 
     //first check if parent is different from current
     let current = graph.nodes[graph.current];
@@ -202,36 +202,36 @@ d3.json("./data/miserables.json").then(graph => {
               let parentNum = provenance.getExtraFromArtifact(parent.id)[0].e.nodeGroup;
 
               //only loop if current is not the same as child
-              if(parentNum != currentNum){
+              if(parentNum != currentNum && currentNum && parentNum){
 
-              current = parent;
+                current = parent;
 
-              while(true){
-                if(isChildNode(current)){
-                  if(provenance.getExtraFromArtifact(current.id)[0]){
+                while(true){
+                  if(isChildNode(current)){
+                    if(provenance.getExtraFromArtifact(current.id)[0]){
 
-                      let currentNum = provenance.getExtraFromArtifact(current.id)[0].e.nodeGroup;
-                      let parent = graph.nodes[current.parent];
+                        let currentNum = provenance.getExtraFromArtifact(current.id)[0].e.nodeGroup;
+                        let parent = graph.nodes[current.parent];
 
-                      //if they are equal, add to bundle and increment count
-                      if(currentNum == parentNum){
-                        bundle.bunchedNodes.push(current.id);
-                        count++;
-                      }
-                      else{
+                        //if they are equal, add to bundle and increment count
+                        if(currentNum == parentNum){
+                          bundle.bunchedNodes.push(current.id);
+                          count++;
+                        }
+                        else{
+                          break;
+                        }
+                        current = parent;
+
+                    }
+                    else{
                         break;
-                      }
-                      current = parent;
-
+                    }
                   }
                   else{
                       break;
                   }
-                }
-                else{
-                    break;
-                }
-            }
+              }
             }
 
         }
@@ -239,12 +239,11 @@ d3.json("./data/miserables.json").then(graph => {
       }
 
     }
-    console.log(count);
+
+    //bundle them on first node that is in same group
     if(count >= 3){
       map[current.children[0]] = bundle;
     }
-
-    //console.log(count);
 
 
 
