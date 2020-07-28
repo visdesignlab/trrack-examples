@@ -172,7 +172,7 @@ d3.json("./data/miserables.json").then(graph => {
     //console.log(currData.id ? currData.id : currData);
     //console.log(provenance.getExtraFromArtifact(graph.current)[0].e.nodeGroup);
 
-    let current = graph.nodes[graph.current];
+
 
     //console.log(current.id);
 
@@ -182,59 +182,72 @@ d3.json("./data/miserables.json").then(graph => {
       bunchedNodes: [],
     };
 
-    let count = 0;
 
     console.log("current node");
     console.log(graph.current);
 
+    //first check if parent is different from current
+    let current = graph.nodes[graph.current];
+    let parent;
+    let count = 0;
+
+    //first make sure current is a child
     if(isChildNode(current)){
       if(provenance.getExtraFromArtifact(current.id)[0]){
-        let num = provenance.getExtraFromArtifact(current.id)[0].e.nodeGroup;
+        let currentNum = provenance.getExtraFromArtifact(current.id)[0].e.nodeGroup;
+        let parent = graph.nodes[current.parent];
 
-        while(true){
-          if(isChildNode(current)){
-            if(provenance.getExtraFromArtifact(current.id)[0]){
+        //make sure parent is a child
+        if(isChildNode(parent)){
+          if(provenance.getExtraFromArtifact(parent.id)[0]){
+              let parentNum = provenance.getExtraFromArtifact(parent.id)[0].e.nodeGroup;
 
-              let currentNum = provenance.getExtraFromArtifact(current.id)[0].e.nodeGroup;
-              let parent = graph.nodes[current.parent];
+              //only loop if current is not the same as child
+              if(parentNum != currentNum){
 
-
-              //if they are equal, bundle and increment count
-              if(currentNum == num){
-                bundle.bunchedNodes.push(current.id);
-                count++;
-              }
-              else{
-                break;
-              }
               current = parent;
 
+              while(true){
+                if(isChildNode(current)){
+                  if(provenance.getExtraFromArtifact(current.id)[0]){
+
+                      let currentNum = provenance.getExtraFromArtifact(current.id)[0].e.nodeGroup;
+                      let parent = graph.nodes[current.parent];
+
+                      //if they are equal, add to bundle and increment count
+                      if(currentNum == parentNum){
+                        bundle.bunchedNodes.push(current.id);
+                        count++;
+                      }
+                      else{
+                        break;
+                      }
+                      current = parent;
+
+                  }
+                  else{
+                      break;
+                  }
+                }
+                else{
+                    break;
+                }
             }
-            else{
-              break;
             }
-          }
-          else{
-            break;
-          }
+
         }
       }
+      }
+
     }
-
-
+    console.log(count);
+    if(count >= 3){
+      map[current.children[0]] = bundle;
+    }
 
     //console.log(count);
 
-    if(count >= 3){
-      //bundle.bunchedNodes = toBunch.reverse();
-      //bundle.metadata = insightOnly;
 
-      console.log("bundled on");
-      console.log(current.children[0]);
-
-      map[current.children[0]] = bundle;
-      //count = 0;
-    }
 
   }
 
