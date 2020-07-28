@@ -183,7 +183,9 @@ d3.json("./data/miserables.json").then(graph => {
     };
 
     let count = 0;
-    let first = true;
+
+    console.log("current node");
+    console.log(graph.current);
 
     if(isChildNode(current)){
       if(provenance.getExtraFromArtifact(current.id)[0]){
@@ -195,7 +197,6 @@ d3.json("./data/miserables.json").then(graph => {
 
               let currentNum = provenance.getExtraFromArtifact(current.id)[0].e.nodeGroup;
               let parent = graph.nodes[current.parent];
-              current = parent;
 
 
               //if they are equal, bundle and increment count
@@ -206,6 +207,8 @@ d3.json("./data/miserables.json").then(graph => {
               else{
                 break;
               }
+              current = parent;
+
             }
             else{
               break;
@@ -226,7 +229,10 @@ d3.json("./data/miserables.json").then(graph => {
       //bundle.bunchedNodes = toBunch.reverse();
       //bundle.metadata = insightOnly;
 
-      map[current.id] = bundle;
+      console.log("bundled on");
+      console.log(current.children[0]);
+
+      map[current.children[0]] = bundle;
       //count = 0;
     }
 
