@@ -241,8 +241,14 @@ d3.json("./data/miserables.json").then(graph => {
       false,
       false,
       undefined,
-      {eventConfig: eventConfig, regularCircleRadius: regularCircleRadius, backboneCircleRadius: backboneCircleRadius,
-          iconOnly: labels, iconSize: iconSize});
+      {
+        eventConfig: eventConfig,
+        regularCircleRadius: regularCircleRadius,
+        backboneCircleRadius: backboneCircleRadius,
+        iconOnly: labels,
+        iconSize: iconSize,
+        editAnnotations: true
+      });
 
   }
 

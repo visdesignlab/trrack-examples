@@ -167,21 +167,9 @@ function BackboneNode<T, S extends string, A>({
             <g></g>
           )}
           {editAnnotations ? (
-            <text
-              style={cursorStyle}
-              onClick={(e) => nodeClicked(node, e)}
-              fontSize={17}
-              fill={"rgb(248, 191, 132)"}
-              textAnchor="middle"
-              alignmentBaseline="middle"
-              x={1}
-              y={0}
-              fontFamily="FontAwesome"
-            >
-              {expandedClusterList && expandedClusterList.includes(node.id)
-                ? "\uf0d8"
-                : "\uf0d7"}
-            </text>
+            <button
+             ><i className="fas fa-undo marginRight"></i>
+               Undo</button>
           ) : (
             <g></g>
           )}

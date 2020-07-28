@@ -9,6 +9,7 @@ import { Provenance, ProvenanceGraph, NodeID } from '@visdesignlab/trrack';
 
 export interface ProvVisConfig {
   eventConfig: EventConfig<any>;
+  editAnnotations: boolean;
   bundleMap: BundleMap;
   iconOnly: boolean;
   iconSize: number;
