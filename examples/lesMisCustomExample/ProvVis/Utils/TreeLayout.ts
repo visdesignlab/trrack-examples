@@ -1,6 +1,6 @@
 import { HierarchyNode } from 'd3';
 import { StratifiedMap } from '../components/ProvVis';
-import { ProvenanceNode } from '@visdesignlab/provenance-lib-core';
+import { ProvenanceNode } from '@visdesignlab/trrack';
 
 export type TreeNode = HierarchyNode<unknown>;
 

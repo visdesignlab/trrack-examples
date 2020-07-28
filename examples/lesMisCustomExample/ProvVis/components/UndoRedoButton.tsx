@@ -1,5 +1,5 @@
 
-import { ProvenanceGraph } from '@visdesignlab/provenance-lib-core';
+import { ProvenanceGraph } from '@visdesignlab/trrack';
 
 import React from 'react';
 import { style } from 'typestyle';

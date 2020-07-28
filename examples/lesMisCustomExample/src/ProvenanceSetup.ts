@@ -24,7 +24,7 @@ import
   CurrentNode,
   Artifacts,
   Extra
-} from '@visdesignlab/provenance-lib-core';
+} from '@visdesignlab/trrack';
 import Bars from "./FDBar"
 import Graph from "./FDGraph"
 

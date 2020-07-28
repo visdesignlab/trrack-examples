@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom';
 import ProvVis from './ProvVis';
 import UndoRedoButton from './UndoRedoButton';
 import {EventConfig} from '../Utils/EventConfig';
+import {BundleMap} from '../Utils/BundleMap';
 
-import { Provenance, ProvenanceGraph, NodeID } from '@visdesignlab/provenance-lib-core';
+import { Provenance, ProvenanceGraph, NodeID } from '@visdesignlab/trrack';
 
 export interface ProvVisConfig {
   eventConfig: EventConfig<any>;
+  bundleMap: BundleMap;
   iconOnly: boolean;
   iconSize: number;
   height: number;
