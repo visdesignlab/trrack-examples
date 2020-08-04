@@ -93,7 +93,7 @@ function ProvVis<T, S extends string, A>({
   ephemeralUndo = false
 }: ProvVisProps<T, S, A>) {
   const [first, setFirst] = useState(true);
-  const [bookmark, setBookmark] = useState(false);
+  const [bookmark, setBookmark] = useState([]);
   const [annotationOpen, setAnnotationOpen] = useState(-1);
   let list: string[] = [];
   let eventTypes = new Set<string>();
@@ -532,13 +532,30 @@ function ProvVis<T, S extends string, A>({
                             changeCurrent(d.id);
                           }
                         }}
+                        onMouseOver={() => {
+                          setBookmark([d.id]);
+
+                        }}
+                        onMouseOut={() => {
+                          setBookmark([]);
+                        }}
                         transform={
                           d.width === 0
                             ? translate(state.x, state.y)
                             : translate(state.x, state.y)
                         }
                       >
+
                         {d.width === 0 ? (
+                          <g>
+                          <rect
+                            width="200"
+                            height="25"
+                            transform="translate(0, -12.5)"
+                            opacity="0"
+                          >
+                          </rect>,
+
                           <BackboneNode
                             prov={prov}
                             textSize={textSize}
@@ -564,6 +581,7 @@ function ProvVis<T, S extends string, A>({
                             popupContent={popupContent}
                             expandedClusterList={expandedClusterList}
                           />
+                        </g>
                         ) : popupContent !== undefined ? (
                           <Popup
                             content={popupContent(d.data)}
@@ -590,6 +608,7 @@ function ProvVis<T, S extends string, A>({
                           </g>
                         )}
                       </g>
+
                     );
 
                     return popupTrigger;

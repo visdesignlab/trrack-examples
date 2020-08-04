@@ -19,7 +19,7 @@ interface BackboneNodeProps<T, S extends string, A> {
   strokeWidth: number;
   textSize: number;
   setBookmark: any;
-  bookmark: boolean;
+  bookmark: string[];
   nodeMap: any;
   annotationOpen: number;
   setAnnotationOpen: any;
@@ -142,6 +142,7 @@ function BackboneNode<T, S extends string, A>({
 
   if (label.length > 20) label = label.substr(0, 20) + "..";
 
+  console.log(bookmark.includes(node.id));
 
   let labelG = (
     <g style={{ opacity: 1 }} transform={translate(padding, 0)}>
@@ -201,11 +202,12 @@ function BackboneNode<T, S extends string, A>({
             style={cursorStyle}
             onClick={(e) => {
               prov.setBookmark(node.id, !prov.getBookmark(node.id));
-              setBookmark(!bookmark);
 
               e.stopPropagation();
             }}
             fontSize={17}
+            className="fas fa"
+            opacity={bookmark.includes(node.id) || prov.getBookmark(node.id) ? 1 : 0}
             fill={prov.getBookmark(node.id) ? "#2185d0" : "#cccccc"}
             textAnchor="middle"
             alignmentBaseline="middle"
