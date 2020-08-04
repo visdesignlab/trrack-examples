@@ -16,13 +16,13 @@ import
   CurrentNode,
   Artifacts,
   Extra
-} from '@visdesignlab/provenance-lib-core';
+} from '@visdesignlab/trrack';
 
 import Scatterplot from "./scatterplot"
 
 import * as d3 from "d3"
 
-import { ProvVis, EventConfig, Config, ProvVisConfig, ProvVisCreator, UndoRedoButtonCreator } from '../ProvVis/provvis';
+import { ProvVis, EventConfig, Config, ProvVisConfig, ProvVisCreator, UndoRedoButtonCreator } from '@visdesignlab/trrack-vis';
 
 
 /**

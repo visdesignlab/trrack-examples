@@ -18,11 +18,11 @@ import
   CurrentNode,
   Artifacts,
   Extra
-} from '@visdesignlab/provenance-lib-core';
+} from '@visdesignlab/trrack';
 import Bars from "./FDBar"
 import Graph from "./FDGraph"
 
-import { ProvVis, EventConfig, Config, ProvVisConfig, ProvVisCreator, UndoRedoButtonCreator } from '../ProvVis/provvis';
+import { ProvVis, EventConfig, Config, ProvVisConfig, ProvVisCreator, UndoRedoButtonCreator } from '@visdesignlab/trrack-vis';
 
 
 export interface NodeState {
