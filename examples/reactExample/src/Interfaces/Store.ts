@@ -4,7 +4,7 @@ import {NodeMap, ApplicationState, defaultState} from './ApplicationState';
 import {
   Provenance,
   initProvenance
-} from '@visdesignlab/provenance-lib-core';
+} from '@visdesignlab/trrack';
 
 export default class Store {
   provenance: Provenance<ApplicationState, unknown, unknown> = initProvenance<ApplicationState, unknown, unknown>(defaultState, false);

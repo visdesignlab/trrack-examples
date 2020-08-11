@@ -22,7 +22,7 @@ import
 import Bars from "./FDBar"
 import Graph from "./FDGraph"
 
-import { ProvVis, EventConfig, Config, ProvVisConfig, ProvVisCreator, UndoRedoButtonCreator } from '@visdesignab/trrack-vis';
+import { ProvVis, EventConfig, Config, ProvVisConfig, ProvVisCreator, UndoRedoButtonCreator } from '@visdesignlab/trrack-vis';
 
 
 export interface NodeState {
