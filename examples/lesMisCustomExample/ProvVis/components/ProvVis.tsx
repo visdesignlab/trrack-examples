@@ -524,6 +524,7 @@ function ProvVis<T, S extends string, A>({
                 <>
                   {nodes.map((node) => {
                     const { data: d, key, state } = node;
+                    {/* console.log(state.y); */}
                     const popupTrigger = (
                       <g
                         key={key}

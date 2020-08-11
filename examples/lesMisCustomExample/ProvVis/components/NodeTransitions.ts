@@ -35,11 +35,11 @@ export default function nodeTransitions(
 
     let y = yOffset * data.depth - (yOffset - clusterOffset) * clusteredNodesInFront;
 
-    if (parentId !== undefined && bundleMap && !Object.keys(bundleMap).includes(data.id)) {
-      y =
-        yOffset * (nodeMap[parentId].depth - bundleMap[parentId].bunchedNodes.length + 2) -
-        (yOffset - clusterOffset) * clusteredNodesInFront;
-    }
+    // if (parentId !== undefined && bundleMap && !Object.keys(bundleMap).includes(data.id)) {
+    //   y =
+    //     yOffset * (nodeMap[parentId].depth - bundleMap[parentId].bunchedNodes.length + 2) -
+    //     (yOffset - clusterOffset) * clusteredNodesInFront;
+    // }
 
     if (annotationOpen !== -1 && data.depth > annotationOpen && data.width === 0) {
       y += annotationHeight;

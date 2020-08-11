@@ -142,8 +142,6 @@ function BackboneNode<T, S extends string, A>({
 
   if (label.length > 20) label = label.substr(0, 20) + "..";
 
-  console.log(bookmark.includes(node.id));
-
   let labelG = (
     <g style={{ opacity: 1 }} transform={translate(padding, 0)}>
       {!iconOnly ? (
