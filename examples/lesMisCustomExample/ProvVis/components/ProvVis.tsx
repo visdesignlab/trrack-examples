@@ -12,7 +12,9 @@ import { EventConfig } from '../Utils/EventConfig';
 import findBundleParent from '../Utils/findBundleParent';
 import translate from '../Utils/translate';
 
-import UndoRedoButton from "./UndoRedoButton"
+import UndoRedoButton from "./UndoRedoButton";
+import BookmarkToggle from "./BookmarkToggle";
+import BookmarkListView from "./BookmarkListView";
 import { treeLayout } from '../Utils/TreeLayout';
 import BackboneNode from './BackboneNode';
 import bundleTransitions from './BundleTransitions';
@@ -49,6 +51,8 @@ interface ProvVisProps<T, S extends string, A> {
   popupContent?: (nodeId: StateNode<T, S, A>) => ReactChild;
   annotationContent?: (nodeId: StateNode<T, S, A>) => ReactChild;
   undoRedoButtons?: boolean;
+  bookmarkToggle?: boolean;
+  bookmarkListView?:boolean;
   editAnnotations?: boolean
   prov?: Provenance<T, S, A>;
   ephemeralUndo?: boolean;
@@ -88,6 +92,8 @@ function ProvVis<T, S extends string, A>({
   popupContent,
   annotationContent,
   editAnnotations = false,
+  bookmarkToggle = true,
+  bookmarkListView = true,
   undoRedoButtons = true,
   prov,
   ephemeralUndo = false
@@ -95,6 +101,7 @@ function ProvVis<T, S extends string, A>({
   const [first, setFirst] = useState(true);
   const [bookmark, setBookmark] = useState(false);
   const [annotationOpen, setAnnotationOpen] = useState(-1);
+  const [bookmarkView, setBookmarkView] = useState(false);
   let list: string[] = [];
   let eventTypes = new Set<string>();
   for(let j in nodeMap)
@@ -424,6 +431,18 @@ function ProvVis<T, S extends string, A>({
 
   return (
     <div style={overflowStyle} className={container} id="prov-vis">
+    <div id="bookmarkDiv">
+      <BookmarkToggle
+        graph={prov ? prov.graph() : undefined}
+        bookmarkView = {bookmarkView}
+        setBookmarkView = {setBookmarkView}
+      />
+    </div>
+    <div id="bookmarkViewDiv">
+      <BookmarkListView
+        graph={prov ? prov.graph() : undefined}
+      />
+    </div>
       <div id="undoRedoDiv">
         <UndoRedoButton
           graph={prov ? prov.graph() : undefined}
@@ -459,6 +478,7 @@ function ProvVis<T, S extends string, A>({
           }}
         />
       </div>
+
       <svg
         style={{ overflow: "visible" }}
         id={"topSvg"}
