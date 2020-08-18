@@ -18,7 +18,7 @@ export default function BookmarkTransitions(
     }
 
     let x = 0;
-    let y = 35*index;
+    let y = 40*index;
 
     // console.log(y);
     // console.log(index);
@@ -44,7 +44,7 @@ export default function BookmarkTransitions(
 
 
     let x = 0;
-    let y = 35*index;
+    let y = 40*index;
 
     // console.log(y);
     // console.log(index);
@@ -68,7 +68,7 @@ export default function BookmarkTransitions(
     }
     // let backboneBundleNodes = findBackboneBundleNodes(nodeMap, bundleMap);
     let x = 0;
-    let y = 35*index;
+    let y = 40*index;
 
     // console.log(y);
     // console.log(index);
