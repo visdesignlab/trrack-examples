@@ -438,7 +438,7 @@ function ProvVis<T, S extends string, A>({
         setBookmarkView = {setBookmarkView}
       />
     </div>
-    <svg
+    {bookmarkView ? (<svg
       style={{ overflow: "visible" }}
       height={100}
       width={svgWidth}
@@ -451,8 +451,9 @@ function ProvVis<T, S extends string, A>({
           currentNode={current}
           />
         </g>
-    </svg>
-      <div id="undoRedoDiv">
+    </svg>) :
+    (<div>
+    <div id="undoRedoDiv">
         <UndoRedoButton
           graph={prov ? prov.graph() : undefined}
           undoCallback = {() => {
@@ -701,7 +702,7 @@ function ProvVis<T, S extends string, A>({
             )}
           </NodeGroup>
         </g>
-      </svg>
+      </svg></div>)}
     </div>
   );
 }
