@@ -9,6 +9,8 @@ import React, { ReactChild, useEffect, useState } from 'react';
 import BookmarkNode from './BookmarkNode';
 import { EventConfig } from '../Utils/EventConfig';
 import { Popup } from 'semantic-ui-react';
+import translate from '../Utils/translate';
+
 
 
 
@@ -17,7 +19,6 @@ export interface BookmarkListViewConfig<T, S extends string, A> {
   graph?: ProvenanceGraph<T, S, A>;
   eventConfig?: EventConfig<S>;
   popupContent?: (nodeId: StateNode<T, S, A>) => ReactChild;
-
 }
 
 
@@ -33,6 +34,8 @@ function BookmarkListView<T, S extends string, A>({
   {
     return null;
   }
+
+  console.log(popupContent);
 
   let gutter = 15;
   let verticalSpace = 50;
@@ -70,6 +73,8 @@ function BookmarkListView<T, S extends string, A>({
     }
   }
 
+
+
   //let nodeList = bookmarks;
 
 
@@ -98,14 +103,17 @@ function BookmarkListView<T, S extends string, A>({
           )}
         >
           {(bookmarks) => (
+
             <>
               {bookmarks.map((bookmark) => {
-                const { data: d } = bookmark;
+                const { data: d, key, state } = bookmark;
 
                 return (
-                  // <g key={d.label}>
-                    <div key={d.id} style={margin} >
-                    <svg>
+                  <g key={key}
+                    transform={translate(
+                      state.x,
+                      state.y 
+                  )}>
                       <BookmarkNode
                           current={true}
                           node={d}
@@ -116,10 +124,7 @@ function BookmarkListView<T, S extends string, A>({
                           eventConfig={eventConfig}
 
                           />
-                          </svg>
-
-                    </div>
-                  // </g>
+                  </g>
                 );
               })}
             </>

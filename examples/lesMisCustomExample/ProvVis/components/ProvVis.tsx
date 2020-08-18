@@ -438,13 +438,19 @@ function ProvVis<T, S extends string, A>({
         setBookmarkView = {setBookmarkView}
       />
     </div>
-    <div id="bookmarkViewDiv">
-      <BookmarkListView
-        graph={prov ? prov.graph() : undefined}
-        eventConfig={eventConfig}
-        popupContent={popupContent}
-      />
-    </div>
+    <svg
+      style={{ overflow: "visible" }}
+      height={100}
+      width={svgWidth}
+      id="bookmarkView">
+      <g id={"globalG"} transform={translate(shiftLeft, topOffset)}>
+        <BookmarkListView
+          graph={prov ? prov.graph() : undefined}
+          eventConfig={eventConfig}
+          popupContent={popupContent}
+          />
+        </g>
+    </svg>
       <div id="undoRedoDiv">
         <UndoRedoButton
           graph={prov ? prov.graph() : undefined}

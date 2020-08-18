@@ -48,13 +48,24 @@ function BookmarkNode<T, S extends string, A>({
     />
   );
 
+  // console.log("in bookmark node");
+
   let dropDownAdded = false;
   const eventType = node.metadata.type;
-  let backboneGlyph;
 
-  if (eventType && eventType in eventConfig && eventType !== "Root") {
-    const { bundleGlyph, currentGlyph, backboneGlyph } = eventConfig[eventType];
-  }
+  const selectedNode = "Selected Node";
+  const selectedBar = "Selected Bar";
+  const movedNode = "Node Moved";
+
+  // if(eventype !== selectedNode || (eventype !== selectedBar || (eventype !== movedNode){
+  //   currentGlyph =
+  // }
+
+  // console.log(eventType);
+  // console.log(eventConfig[eventType]);
+  const { bundleGlyph, currentGlyph, backboneGlyph } = eventConfig[eventType];
+
+
 
 
   glyph = (
@@ -76,31 +87,12 @@ function BookmarkNode<T, S extends string, A>({
 
   if (label.length > 20) label = label.substr(0, 20) + "..";
 
-  let groupLabel = (
-      <g>
-        <text
-          y={annotate.length === 0 ? 0 : -7}
-          x={0}
-          dominantBaseline="middle"
-          textAnchor="start"
-          fontSize={textSize}
-          fontWeight={"bold"}
-        >
-          {label}
-          </text>
+  // console.log(nodeMap);
 
-          <text
-          y={7}
-          x={dropDownAdded ? 10 : 0}
-          dominantBaseline="middle"
-          textAnchor="start"
-          fontSize={textSize}
-          fontWeight={"regular"}
-        >
-          {annotate}
-        </text>
-      </g>
-  );
+  let x = 15;
+  let y = nodeMap.length*5;
+  //console.log(nodeMap[node.id].depth);
+
 
   return (
     <Animate
@@ -111,18 +103,37 @@ function BookmarkNode<T, S extends string, A>({
     >
       {(state) => (
         <>
-          {popupContent !== undefined && nodeMap[node.id].depth > 0 ? (
-            <Popup content={popupContent(node)} trigger={glyph} />
-          ) : (
-            glyph
-          )}
-          {/* {glyph} */}
+        <g style={{ opacity: 1 }} >
 
-          {popupContent !== undefined && nodeMap[node.id].depth > 0 ? (
-            <Popup content={popupContent(node)} trigger={groupLabel} />
-          ) : (
-            groupLabel
-          )}
+          <g style={cursorStyle} fontWeight={"none"}>
+            {currentGlyph}
+          </g>
+
+          <text
+            // y={annotate.length === 0 ? 0 : -7}
+            y ={0}
+            x={20}
+            dominantBaseline="middle"
+            textAnchor="start"
+            fontSize={textSize}
+            fontWeight={"bold"}
+          >
+            {label}
+            </text>
+
+            <text
+            y={7}
+            x={dropDownAdded ? 10 : 0}
+            dominantBaseline="middle"
+            textAnchor="start"
+            fontSize={textSize}
+            fontWeight={"regular"}
+          >
+            {annotate}
+          </text>
+          </g>
+
+
         </>
       )}
     </Animate>

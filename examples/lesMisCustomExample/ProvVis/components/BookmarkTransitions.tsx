@@ -1,28 +1,45 @@
-import { getX } from './LinkTransitions';
 
-export default function nodeTransitions(
+export default function BookmarkTransitions(
   xOffset: number,
   yOffset: number,
   nodeList: any[],
 ) {
   xOffset = -xOffset;
-  const start = (data: any) => {
 
-    let x = 50;
-    let y = 50*nodeList.length;;
+  const start = (data: any) => {
+    let index;
+
+    for(let i = 0; i < nodeList.length; i++){
+      if(nodeList[i] == data){
+        index = i;
+      }
+    }
+
+    let x = 0;
+    let y = 25*index;
 
     return { x: x, y: y - yOffset, opacity: 0 };
   };
 
   const enter = (data: any) => {
+    let index;
+
+    for(let i = 0; i < nodeList.length; i++){
+      if(nodeList[i] == data){
+        index = i;
+      }
+    }
 
     const { source, target } = data;
 
+    console.log("transitions");
     console.log(data);
+    console.log(nodeList);
+    console.log(nodeList[0]);
 
 
-    let x = 50;
-    let y = 50*nodeList.length;
+    let x = 0;
+    let y = 25*index;
 
     return {
       x: [x],
@@ -32,9 +49,16 @@ export default function nodeTransitions(
   };
 
   const update = (data: any) => {
+    let index;
+
+    for(let i = 0; i < nodeList.length; i++){
+      if(nodeList[i] == data){
+        index = i;
+      }
+    }
     // let backboneBundleNodes = findBackboneBundleNodes(nodeMap, bundleMap);
-    let x = 50;
-    let y = 50*nodeList.length;;
+    let x = 0;
+    let y = 25*index;
 
     return {
       x: [x],
