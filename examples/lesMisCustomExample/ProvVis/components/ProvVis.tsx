@@ -441,6 +441,8 @@ function ProvVis<T, S extends string, A>({
     <div id="bookmarkViewDiv">
       <BookmarkListView
         graph={prov ? prov.graph() : undefined}
+        eventConfig={eventConfig}
+        popupContent={popupContent}
       />
     </div>
       <div id="undoRedoDiv">

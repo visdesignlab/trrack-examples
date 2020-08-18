@@ -1,20 +1,31 @@
 
-import { ProvenanceGraph } from '@visdesignlab/trrack';
+import { Provenance, isStateNode, isChildNode, NodeID, Nodes, ProvenanceGraph, ProvenanceNode, StateNode, ChildNode, DiffNode } from '@visdesignlab/trrack';
+
 
 import { style } from 'typestyle';
 import { NodeGroup } from 'react-move';
 import BookmarkTransitions from './BookmarkTransitions';
 import React, { ReactChild, useEffect, useState } from 'react';
-import {isChildNode, ProvenanceNode} from '@visdesignlab/trrack';
+import BookmarkNode from './BookmarkNode';
+import { EventConfig } from '../Utils/EventConfig';
+import { Popup } from 'semantic-ui-react';
+
+
+
 
 export interface BookmarkListViewConfig<T, S extends string, A> {
   graph?: ProvenanceGraph<T, S, A>;
+  eventConfig?: EventConfig<S>;
+  popupContent?: (nodeId: StateNode<T, S, A>) => ReactChild;
+
 }
 
 
 
 function BookmarkListView<T, S extends string, A>({
-  graph
+  graph,
+  eventConfig,
+  popupContent
 
 } : BookmarkListViewConfig<T, S, A> ) {
 
@@ -27,7 +38,6 @@ function BookmarkListView<T, S extends string, A>({
   let verticalSpace = 50;
   let clusterVerticalSpace = 50;
   let backboneGutter = 20;
-  let duration = 600;
 
 
   const isAtRoot = graph.root === graph.current;
@@ -43,10 +53,15 @@ function BookmarkListView<T, S extends string, A>({
 
 
   if(isChildNode(current)){
-    while(true)
+    while(true){
       if(isChildNode(current)){
         if(current.bookmarked){
           bookmarks.push(current);
+        }
+        else{
+          break;
+        }
+
         }
         else{
           break;
@@ -72,35 +87,45 @@ function BookmarkListView<T, S extends string, A>({
 
   return (
 
-    <div>
-      <g className={dot}>
+    // <svg>
         <NodeGroup
           data={bookmarks}
           keyAccessor={(d) => d.label}
           {...BookmarkTransitions(
             xOffset,
             yOffset,
-            clusterVerticalSpace,
-            backboneGutter - gutter,
-            duration,
             bookmarks
           )}
         >
-          {(nodes) => (
+          {(bookmarks) => (
             <>
-              {nodes.map((node) => {
-                const { data: d, key, state } = node;
+              {bookmarks.map((bookmark) => {
+                const { data: d } = bookmark;
 
                 return (
-                  <g key={key}>
-                  </g>
+                  // <g key={d.label}>
+                    <div key={d.id} style={margin} >
+                    <svg>
+                      <BookmarkNode
+                          current={true}
+                          node={d}
+                          nodeMap={bookmarks}
+                          editAnnotations={false}
+                          annotationContent={undefined}
+                          popupContent={popupContent}
+                          eventConfig={eventConfig}
+
+                          />
+                          </svg>
+
+                    </div>
+                  // </g>
                 );
               })}
             </>
           )}
         </NodeGroup>
-        </g>
-    </div>
+    // </svg>
 
 
  );
@@ -113,6 +138,16 @@ function BookmarkListView<T, S extends string, A>({
   color:"#cccccc",
 
 });
+
+const circleStyle = style({
+      padding:10,
+      margin:20,
+      display:"inline-block",
+      backgroundColor: "#cccccc",
+      borderRadius: "50%",
+      width:100,
+      height:100,
+    });
 
 const marginRight = style({
   marginRight:"1px",
