@@ -1,7 +1,8 @@
 import { Provenance, ProvenanceNode, ProvenanceGraph, StateNode } from '@visdesignlab/trrack';
-import React, { ReactChild } from 'react';
+import React, { ReactChild, useRef } from 'react';
 import { Animate } from 'react-move';
 import { Popup } from 'semantic-ui-react';
+import ContentEditable from 'react-contenteditable'
 
 import { BundleMap } from '../Utils/BundleMap';
 import { EventConfig } from '../Utils/EventConfig';
@@ -65,6 +66,14 @@ function BackboneNode<T, S extends string, A>({
     cursor: "pointer",
   } as React.CSSProperties;
 
+  const annotateText = useRef('Edit Annotation');
+
+  const handleChange = evt => {
+      prov.addAnnotationToNode(node.id, evt.target.value);
+      annotateText.current = evt.target.value;
+      console.log(prov.graph().nodes[node.id])
+  };
+
   // console.log(JSON.parse(JSON.stringify(node)));
   let glyph = (
     <circle
@@ -74,9 +83,6 @@ function BackboneNode<T, S extends string, A>({
       strokeWidth={strokeWidth}
     />
   );
-
-  // let backboneBundleNodes = findBackboneBundleNodes(nodeMap, bundleMap)
-
   let dropDownAdded = false;
 
   if (eventConfig) {
@@ -132,6 +138,20 @@ function BackboneNode<T, S extends string, A>({
   if (node.artifacts && node.artifacts.annotation && node.artifacts.annotation.length > 0) {
     annotate = node.artifacts.annotation;
   }
+
+  let showHtml = (
+    <text
+      y={7}
+      x={dropDownAdded ? 10 : 0}
+      dominantBaseline="middle"
+      textAnchor="start"
+      fontSize={textSize}
+      fontWeight={"regular"}
+      onClick={() => labelClicked(node)}
+      >
+      hello
+    </text>
+  )
 
 
   if (!nodeMap[node.id]) {
@@ -214,6 +234,29 @@ function BackboneNode<T, S extends string, A>({
             fontFamily="FontAwesome"
           >
             {"\uf02e"}
+          </text>,
+          <text
+            style={cursorStyle}
+            onClick={(e) => {
+              if(annotationOpen === -1 || nodeMap[node.id].depth != annotationOpen)
+              {
+                setAnnotationOpen(nodeMap[node.id].depth);
+              }
+              else{
+                setAnnotationOpen(-1);
+              }
+            }}
+            fontSize={17}
+            className="fas fa-edit"
+            opacity={bookmark.includes(node.id) || annotationOpen === nodeMap[node.id].depth ? 1 : 0}
+            fill={annotationOpen === nodeMap[node.id].depth ? "#2185d0" : "#cccccc"}
+            textAnchor="middle"
+            alignmentBaseline="middle"
+            x={210}
+            y={0}
+            fontFamily="FontAwesome"
+          >
+            {"\uf044"}
           </text>
         </g>
       ) : (
@@ -239,14 +282,6 @@ function BackboneNode<T, S extends string, A>({
           )}
         </g>
       )}
-
-      {annotationOpen !== -1 &&
-      nodeMap[node.id].depth === annotationOpen &&
-      annotationContent ? (
-        <g>{annotationContent(nodeMap[node.id])}</g>
-      ) : (
-        <g></g>
-      )}
     </g>
   );
 
@@ -271,6 +306,23 @@ function BackboneNode<T, S extends string, A>({
             <Popup content={popupContent(node)} trigger={labelG} />
           ) : (
             labelG
+          )}
+
+          {annotationOpen !== -1 &&
+          nodeMap[node.id].depth === annotationOpen ? (
+            <g
+              transform="translate(15, 25)"
+              >
+              <foreignObject width="200" height="400">
+                <ContentEditable
+                    html={annotateText.current} // innerHTML of the editable div
+                    onChange={handleChange}
+                    disabled={false}
+                  />
+              </foreignObject>
+            </g>
+          ) : (
+            <g></g>
           )}
         </>
       )}

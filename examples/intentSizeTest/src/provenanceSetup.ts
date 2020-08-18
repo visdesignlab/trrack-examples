@@ -28,45 +28,59 @@ import 'firebase/firestore';
 
 import firebase from 'firebase/app';
 
-function download(content, fileName, contentType) {
-    var a = document.createElement("a");
-    var file = new Blob([content], {type: contentType});
-    a.href = URL.createObjectURL(file);
-    a.download = fileName;
-    a.click();
-}
+// function download(content, fileName, contentType) {
+//     var a = document.createElement("a");
+//     var file = new Blob([content], {type: contentType});
+//     a.href = URL.createObjectURL(file);
+//     a.download = fileName;
+//     a.click();
+// }
 
 const config = {
-  apiKey: "AIzaSyA5uubr3-bnPNn_hEpvH_OhAIk9HJ_T53U",
-  authDomain: "intent-system-prolific.firebaseapp.com",
-  databaseURL: "https://intent-system-prolific.firebaseio.com",
-  projectId: "intent-system-prolific",
-  storageBucket: "intent-system-prolific.appspot.com",
-  messagingSenderId: "393407031419",
-  appId: "1:393407031419:web:bd3c2216c601d011ee1ade",
-  measurementId: "G-RQ8LS8DWT9",
+  apiKey: "AIzaSyAdGhNvUkAKeMWhzPHfuoXPUC36gBj68wU",
+  authDomain: "mvn-turk.firebaseapp.com",
+  databaseURL: "https://mvn-turk.firebaseio.com",
+  projectId: "mvn-turk",
+  storageBucket: "",
+  messagingSenderId: "83565157892",
+  appId: "1:83565157892:web:9fff8e165c4e2651"
 };
 
-export function initializeFirebase() {
-  const app: firebase.app.App =
-    firebase.apps.length === 0
-      ? firebase.initializeApp(config)
-      : firebase.app();
+const firebaseConfig = {
+  apiKey: "AIzaSyDTzSonRW7uojuqvbWzn7vxGNExXl61hm4",
+  authDomain: "mvnv-study.firebaseapp.com",
+  databaseURL: "https://mvnv-study.firebaseio.com",
+  projectId: "mvnv-study",
+  storageBucket: "mvnv-study.appspot.com",
+  messagingSenderId: "217128159504",
+  appId: "1:217128159504:web:73df3ecf61ac72f0e9fd95"
+};
 
-  const firestore = firebase.firestore(app);
-  const rtd = firebase.database(app);
-  const graphRTD = app.database(
-    "https://task-provenance-database.firebaseio.com/"
-  );
+const app: firebase.app.App = firebase.initializeApp(config, "loadApp")
 
-  return {
-    config,
-    app,
-    firestore,
-    rtd,
-    graphRTD,
-  };
-}
+const db = firebase.firestore(app);
+
+const saveApp: firebase.app.App = firebase.initializeApp(firebaseConfig, "saveApp")
+
+const saveDb = firebase.database(saveApp);
+
+
+// export function initializeFirebase() {
+//
+//
+//   const rtd = firebase.database(app);
+//   const graphRTD = app.database(
+//     "https://task-provenance-database.firebaseio.com/"
+//   );
+//
+//   return {
+//     config,
+//     app,
+//     firestore,
+//     rtd,
+//     graphRTD,
+//   };
+// }
 
 // var userId = firebase.auth().currentUser.uid;
 // return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
@@ -74,255 +88,150 @@ export function initializeFirebase() {
 //   // ...
 // });
 
-let f = initializeFirebase();
+// let f = initializeFirebase();
 
-console.log(f.graphRTD.ref("565955077d6957000adfe029"))
+export async function fetchProvenance() {
+  paginate(0, false);
+}
 
-f.graphRTD
-  .ref("565955077d6957000adfe029")
-  .once("value")
-  .then(function(dataSnapshot) {
-    console.log("here")
-    console.log(dataSnapshot.val())
+function writeToFirebase(prov: Provenance<any, any, any>) {
 
-    let data = dataSnapshot.val()
+    let graph = prov.graph();
 
-    for(let userId in data)
+    const path: string = `${graph.nodes[graph.current].metadata.workerID}`;
+    const taskId = `${graph.nodes[graph.current].metadata.taskID}`;
+    //
+    const jsonExport = JSON.parse(prov.exportProvenanceGraph());
+
+    if(path.charAt(0) !== "5")
     {
-      for(let sessionId in data[userId])
-      {
-        for(let taskId in data[userId][sessionId])
-        {
-          let states = []
-
-          let oldGraph = data[userId][sessionId][taskId]
-
-          // download(JSON.stringify(oldGraph), `data/${userId}/${sessionId}/${taskId}`, 'text/plain');
-        }
-      }
+      console.log(path);
+      return;
     }
 
-    // let dataJson: any = dataSnapshot.val();
-    // if (
-    //   !dataJson ||
-    //   !dataJson["nodes"] ||
-    //   !dataJson["current"] ||
-    //   !dataJson["root"]
-    // ) {
-    //   return;
-    // }
+    // console.log(jsonExport);
     //
-    // for (let j in dataJson.nodes) {
-    //   if (!dataJson.nodes[j].children) {
-    //     dataJson.nodes[j].children = [];
-    //   }
-    // }
-    //
-    // console.log(dataJson);
-    // provenance.importProvenanceGraph(JSON.stringify(dataJson));
-  });
+    saveDb
+      .ref(`${path}/${taskId}`)
+      .set(jsonExport)
+      .then(() => {
+        const log = {
+          time: Date.now(),
+          status: 'error',
+          currentNodeId: graph.current
+        };
+      })
+      .catch(err => {
+        console.log(err);
+        throw new Error('Something went wrong while logging.');
+      });
+};
 
-let states: any[] = [];
-let labels: any[] = [];
-let metadata: any[] = []
 
+async function paginate(i, lastDoc) {
+  let ref;
 
-d3.json("data/data_5e9d0b215591a023ba932a8d_5e9d1df256b31c2493a33c91_1587355139382_24a8ede6-01e8-4ca4-a196-99179cc60ae4.json").then((d: any) => {
-
-  let sortedArr = Object.keys(d.nodes).sort((a, b) => {
-    return d.nodes[a].metadata.createdOn - d.nodes[b].metadata.createdOn
-  })
-
-  console.log(sortedArr);
-
-  for(let j of sortedArr)
-  {
-    console.log(j)
-    states.push(d.nodes[j].state);
-    metadata.push(d.nodes[j].metadata);
-    labels.push(d.nodes[j].label);
+  if (lastDoc) {
+    ref = db
+      .collection("provenance")
+      .orderBy("initialSetup")
+      .startAfter(lastDoc.data().initialSetup)
+      .limit(1);
+  } else {
+    ref = db.collection("provenance").orderBy("id").limit(1);
   }
 
-  let prov = initProvenance<any, any, any>({}, false)
+  // console.log(ref);
 
-  console.log(labels);
-  prov.importLinearStates(states, labels, metadata);
+  ref.get().then((snapshot) => {
+    // ...
+    let numDocs = snapshot.docs.length;
+    // console.log("numDocs", numDocs);
 
-  console.log(JSON.parse(JSON.stringify(d)))
-  console.log(JSON.parse(JSON.stringify(prov.graph())));
-})
+    let data = JSON.stringify(
+      snapshot.docs.map((d) => {
+        return {
+          id: d.id,
+          data: d.data(),
+        };
+      })
+    );
 
+    let allNodes = JSON.parse(data)
 
-//
-// /**
-// * interface representing the state of the application
-// */
-// export interface NodeState {
-//   selectedQuartet:string;
-//   selectedNode:string;
-//   hoveredNode:string;
-// };
-//
-// /**
-// * Initial state
-// */
-//
-// const initialState: NodeState = {
-//   selectedQuartet: 'I',
-//   selectedNode: 'none',
-//   hoveredNode: 'none'
-// }
-//
-// type EventTypes = "Change Quartet" | "Select Node" | "Hover Node"
-//
-// //initialize provenance with the first state
-// let prov = initProvenance<NodeState, EventTypes, string>(initialState, false);
-//
-// //Set up apply action functions for each of the 3 actions that affect state
-//
-// /**
-// * Function called when the quartet number is changed. Applies an action to provenance.
-// * This is a complex action, meaning it always stores a state node.
-// */
-//
-// let changeQuartetUpdate = function(newQuartet: string){
-//   //create prov Object
-//
-//   let action = prov.addAction(
-//     "Quartet " + newQuartet + " Selected",
-//     (state:NodeState) => {
-//       state.selectedQuartet = newQuartet;
-//       return state;
-//     }
-//   )
-//
-//   action
-//     .addEventType("Change Quartet")
-//     .alwaysStoreState(true)
-//     .applyAction();
-// }
-//
-// /**
-// * Function called when a node is selected. Applies an action to provenance.
-// */
-//
-// let selectNodeUpdate = function(newSelected: string){
-//   let action = prov.addAction(
-//     newSelected + " Selected",
-//     (state:NodeState) => {
-//       state.selectedNode = newSelected;
-//       return state;
-//     }
-//   )
-//
-//   action
-//     .addEventType("Select Node")
-//     .applyAction();
-// }
-//
-// /**
-// * Function called when a node is hovered. Applies an action to provenance.
-// */
-//
-// let hoverNodeUpdate = function(newHover: string){
-//   let action = prov.addAction(
-//     newHover === "" ? "Hover Removed" : newHover + " Hovered",
-//     (state:NodeState) => {
-//       state.hoveredNode = newHover;
-//       return state;
-//     }
-//   )
-//
-//   action
-//     .addEventType("Hover Node")
-//     .applyAction();
-// }
-//
-// // Create our scatterplot class which handles the actual vis. Pass it our three action functions
-// // so it can use them when appropriate.
-// let scatterplot = new Scatterplot(changeQuartetUpdate, selectNodeUpdate, hoverNodeUpdate);
-//
-// //Create function to pass to the ProvVis library for when a node is selected in the graph.
-// //For our purposes, were simply going to jump to the selected node.
-// let visCallback = function(newNode:NodeID)
-// {
-//   prov.goToNode(newNode);
-//
-//   //Incase the state doesn't change and the observers arent called, updating the ProvVis here.
-//   provVisUpdate()
-// }
-//
-// // Set up observers for the three keys in state. These observers will get called either when an applyAction
-// // function changes the associated keys value.
-//
-// // Also will be called when an internal graph change such as goBackNSteps, goBackOneStep or goToNode
-// // change the keys value.
-//
-// /**
-// * Observer for when the quartet state is changed. Calls changeQuartet in scatterplot to update vis.
-// */
-// prov.addObserver(["selectedQuartet"], () => {
-//   scatterplot.changeQuartet(prov.current().getState().selectedQuartet);
-//
-//   provVisUpdate()
-//
-// });
-//
-// /**
-// * Observer for when the selected node state is changed. Calls selectNode in scatterplot to update vis.
-// */
-// prov.addObserver(["selectedNode"], () => {
-//   scatterplot.selectNode(prov.current().getState().selectedNode);
-//
-//   console.log("select obs called")
-//
-//   provVisUpdate()
-//
-// });
-//
-// /**
-// * Observer for when the hovered node state is changed. Calls hoverNode in scatterplot to update vis.
-// */
-// prov.addObserver(["hoveredNode"], () => {
-//   scatterplot.hoverNode(prov.current().getState().hoveredNode);
-//
-//   provVisUpdate()
-//
-// });
-//
-// //Setup ProvVis once initially
-// provVisUpdate()
-//
-//
-// // Undo function which simply goes one step backwards in the graph.
-// function undo(){
-//   prov.goBackOneStep();
-// }
-//
-// //Redo function which traverses down the tree one step.
-// function redo(){
-//   if(prov.current().children.length == 0){
-//     return;
-//   }
-//   prov.goForwardOneStep();
-// }
-//
-// function provVisUpdate()
-// {
-//   ProvVisCreator(
-//     document.getElementById("provDiv")!,
-//     prov,
-//     visCallback);
-// }
-//
-// //Setting up undo/redo hotkey to typical buttons
-// document.onkeydown = function(e){
-//   var mac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
-//
-//   if(!e.shiftKey && (mac ? e.metaKey : e.ctrlKey) && e.which == 90){
-//     undo();
-//   }
-//   else if(e.shiftKey && (mac ? e.metaKey : e.ctrlKey) && e.which == 90){
-//     redo();
-//   }
-// }
+    for(let k in allNodes)
+    {
+        let states = allNodes[k].data.provGraphs
+        let statesCopy = JSON.parse(JSON.stringify(states));
+        let statesLabels: string[] = [];
+        let statesMetadata: any[] = [];
+
+        if(states[0].hardSelected)
+        {
+          for(let i = 0; i < statesCopy.length; i++)
+          {
+            statesLabels.push(statesCopy[i].event)
+            statesMetadata.push({
+              createdOn: statesCopy[i].time,
+              type: statesCopy[i].event,
+              startTime: statesCopy[i].startTime,
+              workerID: statesCopy[i].workerID,
+              taskID: statesCopy[i].taskID,
+              order: statesCopy[i].order
+            })
+
+            delete statesCopy[i].event
+            delete statesCopy[i].startTime
+            delete statesCopy[i].time
+            delete statesCopy[i].workerID
+            delete statesCopy[i].taskID
+            delete statesCopy[i].order
+
+          }
+        }
+        else{
+          for(let i = 0; i < statesCopy.length; i++)
+          {
+            if(!statesCopy[i].event)
+            {
+              statesCopy[i].event = "started provenance"
+            }
+            statesLabels.push(statesCopy[i].event)
+            statesMetadata.push({
+              createdOn: statesCopy[i].time,
+              type: statesCopy[i].event,
+              startTime: statesCopy[i].startTime,
+              workerID: statesCopy[i].workerID,
+              taskID: statesCopy[i].taskID.taskID,
+              order: statesCopy[i].order
+            })
+
+            delete statesCopy[i].event
+            delete statesCopy[i].startTime
+            delete statesCopy[i].time
+            delete statesCopy[i].workerID
+            delete statesCopy[i].taskID
+            delete statesCopy[i].order
+
+          }
+        }
+
+        let prov = initProvenance<any, any, any>({});
+        prov.importLinearStates(statesCopy, statesLabels, statesMetadata);
+
+        writeToFirebase(prov);
+    }
+
+    let last = snapshot.docs[snapshot.docs.length - 1];
+    //
+    if (numDocs === 1) {
+      console.log(i)
+      paginate(i + 1, last);
+    }
+    else{
+      console.log("done!");
+    }
+  });
+}
+
+fetchProvenance();
