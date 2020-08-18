@@ -83,6 +83,10 @@ function BackboneNode<T, S extends string, A>({
       strokeWidth={strokeWidth}
     />
   );
+
+
+  // let backboneBundleNodes = findBackboneBundleNodes(nodeMap, bundleMap)
+
   let dropDownAdded = false;
 
   if (eventConfig) {
