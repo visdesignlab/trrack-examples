@@ -48,14 +48,14 @@ function BookmarkNode<T, S extends string, A>({
     />
   );
 
-  console.log("in bookmark node");
+  // console.log("in bookmark node");
 
   let dropDownAdded = false;
   const eventType = node.metadata.type;
-
-  console.log(node);
-  console.log(current);
-  console.log(node.id)
+  //
+  // console.log(node);
+  // console.log(current);
+  // console.log(node.id)
 
 
   // if(eventype !== selectedNode || (eventype !== selectedBar || (eventype !== movedNode){
@@ -136,7 +136,7 @@ function BookmarkNode<T, S extends string, A>({
             </text>
 
             <text
-            y={7}
+            y={20}
             x={dropDownAdded ? 10 : 0}
             dominantBaseline="middle"
             textAnchor="start"
