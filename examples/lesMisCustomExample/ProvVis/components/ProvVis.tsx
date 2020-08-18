@@ -448,6 +448,7 @@ function ProvVis<T, S extends string, A>({
           graph={prov ? prov.graph() : undefined}
           eventConfig={eventConfig}
           popupContent={popupContent}
+          currentNode={current}
           />
         </g>
     </svg>

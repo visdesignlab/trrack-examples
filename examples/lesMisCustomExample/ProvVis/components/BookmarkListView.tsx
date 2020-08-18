@@ -19,6 +19,8 @@ export interface BookmarkListViewConfig<T, S extends string, A> {
   graph?: ProvenanceGraph<T, S, A>;
   eventConfig?: EventConfig<S>;
   popupContent?: (nodeId: StateNode<T, S, A>) => ReactChild;
+  currentNode: NodeID;
+
 }
 
 
@@ -26,7 +28,8 @@ export interface BookmarkListViewConfig<T, S extends string, A> {
 function BookmarkListView<T, S extends string, A>({
   graph,
   eventConfig,
-  popupContent
+  popupContent,
+  currentNode
 
 } : BookmarkListViewConfig<T, S, A> ) {
 
@@ -112,10 +115,10 @@ function BookmarkListView<T, S extends string, A>({
                   <g key={key}
                     transform={translate(
                       state.x,
-                      state.y 
+                      state.y
                   )}>
                       <BookmarkNode
-                          current={true}
+                          current={currentNode === d.id}
                           node={d}
                           nodeMap={bookmarks}
                           editAnnotations={false}

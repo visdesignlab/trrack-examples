@@ -48,14 +48,15 @@ function BookmarkNode<T, S extends string, A>({
     />
   );
 
-  // console.log("in bookmark node");
+  console.log("in bookmark node");
 
   let dropDownAdded = false;
   const eventType = node.metadata.type;
 
-  const selectedNode = "Selected Node";
-  const selectedBar = "Selected Bar";
-  const movedNode = "Node Moved";
+  console.log(node);
+  console.log(current);
+  console.log(node.id)
+
 
   // if(eventype !== selectedNode || (eventype !== selectedBar || (eventype !== movedNode){
   //   currentGlyph =
@@ -66,12 +67,27 @@ function BookmarkNode<T, S extends string, A>({
   const { bundleGlyph, currentGlyph, backboneGlyph } = eventConfig[eventType];
 
 
+  if (current) {
+    glyph = (
+      <g style={cursorStyle} fontWeight={"none"}>
+        {currentGlyph}
+      </g>
+    );
+  } else {
+    console.log("in else");
+    glyph = (
+      <g style={cursorStyle} fontWeight={"none"}>
+        {backboneGlyph}
+      </g>
+    );
+  }
 
 
-  glyph = (
-    <g style={cursorStyle} fontWeight={"none"}>
-      {backboneGlyph}
-    </g>);
+
+  // glyph = (
+  //   <g style={cursorStyle} fontWeight={"none"}>
+  //     {backboneGlyph}
+  //   </g>);
 
 
   let label: string = "";
@@ -105,9 +121,7 @@ function BookmarkNode<T, S extends string, A>({
         <>
         <g style={{ opacity: 1 }} >
 
-          <g style={cursorStyle} fontWeight={"none"}>
-            {currentGlyph}
-          </g>
+          {glyph}
 
           <text
             // y={annotate.length === 0 ? 0 : -7}
