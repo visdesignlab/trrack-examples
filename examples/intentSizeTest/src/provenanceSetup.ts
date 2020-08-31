@@ -62,7 +62,7 @@ const db = firebase.firestore(app);
 
 const saveApp: firebase.app.App = firebase.initializeApp(firebaseConfig, "saveApp")
 
-const saveDb = firebase.database(saveApp);
+const saveDb = firebase.firestore(saveApp);
 
 
 // export function initializeFirebase() {
@@ -90,6 +90,9 @@ const saveDb = firebase.database(saveApp);
 
 // let f = initializeFirebase();
 
+let jsonNL = {}
+let jsonAM = {}
+
 export async function fetchProvenance() {
   paginate(0, false);
 }
@@ -112,7 +115,8 @@ function writeToFirebase(prov: Provenance<any, any, any>) {
     // console.log(jsonExport);
     //
     saveDb
-      .ref(`${path}/${taskId}`)
+      .collection('studyData')
+      .doc(`${path}-${taskId}`)
       .set(jsonExport)
       .then(() => {
         const log = {
@@ -219,6 +223,63 @@ async function paginate(i, lastDoc) {
         let prov = initProvenance<any, any, any>({});
         prov.importLinearStates(statesCopy, statesLabels, statesMetadata);
 
+        let nodes = prov.graph().nodes;
+
+        for(let n in nodes)
+        {
+
+          if(nodes[n].getState().hardSelected)
+          {
+            if(!jsonNL[nodes[n].metadata.workerID])
+            {
+              jsonNL[nodes[n].metadata.workerID] = {};
+            }
+
+            if(!jsonNL[nodes[n].metadata.workerID][nodes[n].metadata.taskID])
+            {
+              jsonNL[nodes[n].metadata.workerID][nodes[n].metadata.taskID] = {};
+            }
+
+            let taskNum = +nodes[n].metadata.taskID.substring(nodes[n].metadata.taskID.length - 2)
+
+            jsonNL[nodes[n].metadata.workerID][nodes[n].metadata.taskID][n] = {
+              diff: prov.getDiffFromNode(n),
+              type: "NL",
+              time: nodes[n].metadata.createdOn,
+              eventLabel: nodes[n].label,
+              url: `https://vdl.sci.utah.edu/mvnv-study/?vis=NL&taskNum=${taskNum}&participantID=${nodes[n].metadata.workerID}&taskID=${nodes[n].metadata.taskID}/#${n}`
+            }
+          }
+          else
+          {
+            if(!jsonAM[nodes[n].metadata.workerID])
+            {
+              jsonAM[nodes[n].metadata.workerID] = {};
+            }
+
+            if(!jsonAM[nodes[n].metadata.workerID][nodes[n].metadata.taskID])
+            {
+              jsonAM[nodes[n].metadata.workerID][nodes[n].metadata.taskID] = {};
+            }
+
+            if(nodes[n].metadata.taskID === undefined)
+            {
+              continue;
+            }
+
+            let taskNum = nodes[n].metadata.taskID.substring(nodes[n].metadata.taskID.length - 2)
+
+            jsonAM[nodes[n].metadata.workerID][nodes[n].metadata.taskID][n] = {
+              diff: prov.getDiffFromNode(n),
+              type: "AM",
+              time: nodes[n].metadata.createdOn,
+              eventLabel: nodes[n].label,
+              url: `https://vdl.sci.utah.edu/mvnv-study/?vis=AM&taskNum=${taskNum}&participantID=${nodes[n].metadata.workerID}&taskID=${nodes[n].metadata.taskID}/#${n}`
+
+            }
+          }
+        }
+
         writeToFirebase(prov);
     }
 
@@ -230,6 +291,8 @@ async function paginate(i, lastDoc) {
     }
     else{
       console.log("done!");
+      console.log(jsonNL);
+      console.log(jsonAM);
     }
   });
 }
