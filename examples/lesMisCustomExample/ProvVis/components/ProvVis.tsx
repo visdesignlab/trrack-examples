@@ -15,6 +15,8 @@ import translate from '../Utils/translate';
 import UndoRedoButton from "./UndoRedoButton";
 import BookmarkToggle from "./BookmarkToggle";
 import BookmarkListView from "./BookmarkListView";
+import IconToggle from "./IconToggle";
+import IconSizeSlider from "./IconSizeSlider";
 import { treeLayout } from '../Utils/TreeLayout';
 import BackboneNode from './BackboneNode';
 import bundleTransitions from './BundleTransitions';
@@ -71,7 +73,7 @@ function ProvVis<T, S extends string, A>({
   changeCurrent,
   width = 1500,
   height = 2000,
-  iconOnly = false,
+  // iconOnly = false,
   gutter = 15,
   backboneGutter = 20,
   verticalSpace = 50,
@@ -102,6 +104,10 @@ function ProvVis<T, S extends string, A>({
   const [bookmark, setBookmark] = useState([]);
   const [annotationOpen, setAnnotationOpen] = useState(-1);
   const [bookmarkView, setBookmarkView] = useState(false);
+  const [iconOnly, setIconOnly] = useState(false);
+  const [iconSize, setIconSize] = useState(100);
+
+
   let list: string[] = [];
   let eventTypes = new Set<string>();
   for(let j in nodeMap)
@@ -431,6 +437,21 @@ function ProvVis<T, S extends string, A>({
 
   return (
     <div style={overflowStyle} className={container} id="prov-vis">
+    <div id="iconToggleDiv">
+      <IconToggle
+        graph={prov ? prov.graph() : undefined}
+        iconOnly = {iconOnly}
+        setIconOnly = {setIconOnly}
+      />
+    </div>
+    <div id="iconSlider">
+      <IconSizeSlider
+        graph={prov ? prov.graph() : undefined}
+        eventConfig={eventConfig}
+        iconSize = {iconSize}
+        setIconSize = {setIconSize}
+      />
+    </div>
     <div id="bookmarkDiv">
       <BookmarkToggle
         graph={prov ? prov.graph() : undefined}

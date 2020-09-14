@@ -1,5 +1,6 @@
 
 import { ProvenanceGraph } from '@visdesignlab/trrack';
+import {Tabs, Tab} from 'react-bootstrap-tabs';
 
 import React, {Component} from 'react';
 import { style } from 'typestyle';
@@ -32,19 +33,22 @@ function  BookmarkToggle<T, S extends string, A>({
 
   return (
 
-    <div className='custom-control custom-switch'>
-       <input
-         type='checkbox'
-         className='custom-control-input'
-         id='customSwitches'
-         checked={bookmarkView}
-         onChange= {(e) => {setBookmarkView(!bookmarkView)}}
-         readOnly
-       />
-       <label className='custom-control-label' htmlFor='customSwitches'>
-         Show bookmarked
-       </label>
-     </div>
+    // <label className='checkbox-inline'>
+    //    <input
+    //      type='checkbox'
+    //      checked={bookmarkView}
+    //      onChange= {(e) => {setBookmarkView(!bookmarkView)}}
+    //    /> Show Bookmarked
+    //
+    //  </label>
+
+    <Tabs activeKey={1} onSelect={(e) => {setBookmarkView(!bookmarkView)}}>
+        <Tab eventKey={1} title="Provenance" label={"Provenance"}>
+        </Tab>
+        <Tab eventKey={2} title="Bookmarks" label={"Bookmarks"}>
+        </Tab>
+      </Tabs>
+
 
 
  );
