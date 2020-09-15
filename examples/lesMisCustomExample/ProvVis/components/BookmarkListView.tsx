@@ -57,15 +57,14 @@ function BookmarkListView<T, S extends string, A>({
   const xOffset = gutter;
   const yOffset = verticalSpace;
 
+  console.log(current);
+
 
   if(isChildNode(current)){
     while(true){
       if(isChildNode(current)){
-        if(current.bookmarked){
+        if(current.bookmarked || current.artifacts.annotation){
           bookmarks.push(current);
-        }
-        else{
-          break;
         }
 
         }

@@ -43,9 +43,9 @@ function  BookmarkToggle<T, S extends string, A>({
     //  </label>
 
     <Tabs activeKey={1} onSelect={(e) => {setBookmarkView(!bookmarkView)}}>
-        <Tab eventKey={1} title="Provenance" label={"Provenance"}>
+        <Tab eventKey={1} title="Provenance" label="Provenance">
         </Tab>
-        <Tab eventKey={2} title="Bookmarks" label={"Bookmarks"}>
+        <Tab eventKey={2} title="Bookmarks" label="Bookmarks">
         </Tab>
       </Tabs>
 

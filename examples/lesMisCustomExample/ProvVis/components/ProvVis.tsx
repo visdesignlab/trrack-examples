@@ -459,7 +459,7 @@ function ProvVis<T, S extends string, A>({
               {
                 if(ephemeralUndo)
                 {
-                  prov.goBackToNonEphemeral()
+                  prov.goBackToNonEphemeral();
                 }
                 else{
                   prov.goBackOneStep();
@@ -496,7 +496,7 @@ function ProvVis<T, S extends string, A>({
     </div>
     {bookmarkView ? (<svg
       style={{ overflow: "visible" }}
-      height={100}
+      height={maxHeight < height ? height : maxHeight}
       width={svgWidth}
       id="bookmarkView">
       <g id={"globalG"} transform={translate(shiftLeft, topOffset)}>
