@@ -16,7 +16,6 @@ import UndoRedoButton from "./UndoRedoButton";
 import BookmarkToggle from "./BookmarkToggle";
 import BookmarkListView from "./BookmarkListView";
 import IconToggle from "./IconToggle";
-import IconSizeSlider from "./IconSizeSlider";
 import { treeLayout } from '../Utils/TreeLayout';
 import BackboneNode from './BackboneNode';
 import bundleTransitions from './BundleTransitions';
@@ -435,23 +434,59 @@ function ProvVis<T, S extends string, A>({
     overflowY: "auto",
   } as React.CSSProperties;
 
+  const grid = {
+    display: "inline-flex",
+    marginBottom: "20px",
+  } as React.CSSProperties;
+
+
   return (
     <div style={overflowStyle} className={container} id="prov-vis">
-    <div id="iconToggleDiv">
-      <IconToggle
-        graph={prov ? prov.graph() : undefined}
-        iconOnly = {iconOnly}
-        setIconOnly = {setIconOnly}
-      />
-    </div>
-    <div id="iconSlider">
-      <IconSizeSlider
-        graph={prov ? prov.graph() : undefined}
-        eventConfig={eventConfig}
-        iconSize = {iconSize}
-        setIconSize = {setIconSize}
-      />
-    </div>
+    <div style={grid}>
+
+      <div id="iconToggleDiv">
+        <IconToggle
+          graph={prov ? prov.graph() : undefined}
+          iconOnly = {iconOnly}
+          setIconOnly = {setIconOnly}
+        />
+      </div>
+      <div id="undoRedoDiv">
+          <UndoRedoButton
+            graph={prov ? prov.graph() : undefined}
+            undoCallback = {() => {
+              if(prov)
+              {
+                if(ephemeralUndo)
+                {
+                  prov.goBackToNonEphemeral()
+                }
+                else{
+                  prov.goBackOneStep();
+                }
+              }
+              else{
+                return;
+              }
+            }}
+            redoCallback = {() => {
+              if(prov)
+              {
+                if(ephemeralUndo)
+                {
+                  prov.goForwardToNonEphemeral()
+                }
+                else{
+                  prov.goForwardOneStep();
+                }
+              }
+              else{
+                return;
+              }
+            }}
+          />
+        </div>
+      </div>
     <div id="bookmarkDiv">
       <BookmarkToggle
         graph={prov ? prov.graph() : undefined}
@@ -474,41 +509,7 @@ function ProvVis<T, S extends string, A>({
         </g>
     </svg>) :
     (<div>
-    <div id="undoRedoDiv">
-        <UndoRedoButton
-          graph={prov ? prov.graph() : undefined}
-          undoCallback = {() => {
-            if(prov)
-            {
-              if(ephemeralUndo)
-              {
-                prov.goBackToNonEphemeral()
-              }
-              else{
-                prov.goBackOneStep();
-              }
-            }
-            else{
-              return;
-            }
-          }}
-          redoCallback = {() => {
-            if(prov)
-            {
-              if(ephemeralUndo)
-              {
-                prov.goForwardToNonEphemeral()
-              }
-              else{
-                prov.goForwardOneStep();
-              }
-            }
-            else{
-              return;
-            }
-          }}
-        />
-      </div>
+
 
       <svg
         style={{ overflow: "visible" }}
