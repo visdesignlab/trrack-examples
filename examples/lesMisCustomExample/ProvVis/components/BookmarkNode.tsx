@@ -17,6 +17,7 @@ interface BookmarkNodeProps<T, S extends string, A> {
   annotationContent?: (nodeId: StateNode<T, S, A>) => ReactChild;
   popupContent?: (nodeId: StateNode<T, S, A>) => ReactChild;
   eventConfig?: EventConfig<S>;
+  timestamp?: (nodeId: StateNode<T, S, A>) => ReactChild;
 }
 
 function BookmarkNode<T, S extends string, A>({
@@ -27,6 +28,7 @@ function BookmarkNode<T, S extends string, A>({
   annotationContent,
   popupContent,
   eventConfig,
+  timestamp,
 }: BookmarkNodeProps<T, S, A>) {
 
   const padding = 15;
@@ -92,10 +94,15 @@ function BookmarkNode<T, S extends string, A>({
 
   let label: string = "";
   let annotate: string = "";
+  let time: string = "";
 
   if (node.artifacts && node.artifacts.annotation && node.artifacts.annotation.length > 0) {
     annotate = node.artifacts.annotation;
   }
+
+  let date  = new Date(node.metadata.createdOn);
+
+  time = date.toLocaleDateString() + " " + date.toLocaleTimeString();
 
   label = node.label;
 
@@ -119,7 +126,10 @@ function BookmarkNode<T, S extends string, A>({
     >
       {(state) => (
         <>
-        <g style={{ opacity: 1 }} >
+        <g style={{ opacity: 1 }} transform={translate(
+          0,
+          10
+      )} >
 
           {glyph}
 
@@ -136,7 +146,7 @@ function BookmarkNode<T, S extends string, A>({
             </text>
 
             <text
-            y={20}
+            y={40}
             x={dropDownAdded ? 10 : 0}
             dominantBaseline="middle"
             textAnchor="start"
@@ -145,6 +155,18 @@ function BookmarkNode<T, S extends string, A>({
           >
             {annotate}
           </text>
+
+          <text
+          y={20}
+          x={0}
+          dominantBaseline="middle"
+          textAnchor="start"
+          fontSize={12}
+          fontWeight={"regular"}
+        >
+          {time}
+        </text>
+
           </g>
 
 

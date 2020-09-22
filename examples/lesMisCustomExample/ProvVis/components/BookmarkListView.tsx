@@ -38,7 +38,7 @@ function BookmarkListView<T, S extends string, A>({
     return null;
   }
 
-  console.log(popupContent);
+  // console.log(popupContent);
 
   let gutter = 15;
   let verticalSpace = 50;
@@ -49,31 +49,51 @@ function BookmarkListView<T, S extends string, A>({
   const isAtRoot = graph.root === graph.current;
   const isAtLatest = graph.nodes[graph.current].children.length === 0;
 
-  let current = graph.nodes[graph.current];
-  let nodesNum = graph.nodes[graph.current].children.length;
+  // let current = graph.nodes[0];
+  // let nodesNum = graph.nodes.length;
+
+  // console.log(nodesNum);
+  // console.log(current);
 
   let bookmarks = [];
+  let times = [];
 
   const xOffset = gutter;
   const yOffset = verticalSpace;
 
-  console.log(current);
+  //console.log(current);
+  //console.log(graph.nodes);
 
+  for(let j in graph.nodes){
+    let current = graph.nodes[j];
+    if(isChildNode(current)){
+      if(current.bookmarked || current.artifacts.annotation){
+        bookmarks.push(current);
 
-  if(isChildNode(current)){
-    while(true){
-      if(isChildNode(current)){
-        if(current.bookmarked || current.artifacts.annotation){
-          bookmarks.push(current);
-        }
-
-        }
-        else{
-          break;
-        }
-        current = graph.nodes[current.parent];
+      }
     }
   }
+
+  console.log(bookmarks);
+  console.log(times);
+
+  // let date = new Date(times[0]);
+  // console.log(date);
+
+
+  // if(isChildNode(current)){
+  //   while(true){
+  //     if(isChildNode(current)){
+  //       if(current.bookmarked || current.artifacts.annotation){
+  //         bookmarks.push(current);
+  //       }
+  //       }
+  //       else{
+  //         break;
+  //       }
+  //       current = graph.nodes[current.parent];
+  //   }
+  // }
 
 
 
@@ -85,7 +105,7 @@ function BookmarkListView<T, S extends string, A>({
  //   items.push(<li key={index}>{value}</li>)
  // }
 
- console.log(bookmarks);
+ //console.log(bookmarks);
 
 
   let margin = {
@@ -126,6 +146,8 @@ function BookmarkListView<T, S extends string, A>({
                           eventConfig={eventConfig}
 
                           />
+
+
                   </g>
                 );
               })}

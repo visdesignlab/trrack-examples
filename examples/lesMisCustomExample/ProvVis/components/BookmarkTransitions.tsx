@@ -5,7 +5,7 @@ export default function BookmarkTransitions(
   nodeList: any[],
 ) {
   xOffset = -xOffset;
-  console.log("transitions");
+  //console.log("transitions");
 
 
   const start = (data: any) => {
@@ -18,7 +18,7 @@ export default function BookmarkTransitions(
     }
 
     let x = 0;
-    let y = 40*index;
+    let y = 60*index;
 
     // console.log(y);
     // console.log(index);
@@ -38,13 +38,13 @@ export default function BookmarkTransitions(
 
     const { source, target } = data;
 
-    console.log(data);
-    console.log(nodeList);
-    console.log(nodeList[0]);
+    // console.log(data);
+    // console.log(nodeList);
+    // console.log(nodeList[0]);
 
 
     let x = 0;
-    let y = 40*index;
+    let y = 60*index;
 
     // console.log(y);
     // console.log(index);
@@ -68,7 +68,7 @@ export default function BookmarkTransitions(
     }
     // let backboneBundleNodes = findBackboneBundleNodes(nodeMap, bundleMap);
     let x = 0;
-    let y = 40*index;
+    let y = 60*index;
 
     // console.log(y);
     // console.log(index);
