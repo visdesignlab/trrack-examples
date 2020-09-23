@@ -125,6 +125,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="provenance.html#done" class="tsd-kind-icon">done</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="provenance.html#exportprovenancegraph" class="tsd-kind-icon">export<wbr>Provenance<wbr>Graph</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="provenance.html#exportstate" class="tsd-kind-icon">export<wbr>State</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="provenance.html#getbookmark" class="tsd-kind-icon">get<wbr>Bookmark</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="provenance.html#getdifffromnode" class="tsd-kind-icon">get<wbr>Diff<wbr>From<wbr>Node</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="provenance.html#getextrafromartifact" class="tsd-kind-icon">get<wbr>Extra<wbr>From<wbr>Artifact</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="provenance.html#gobacknsteps" class="tsd-kind-icon">go<wbr>BackNSteps</a></li>
@@ -139,6 +140,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="provenance.html#importstate" class="tsd-kind-icon">import<wbr>State</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="provenance.html#reset" class="tsd-kind-icon">reset</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="provenance.html#root" class="tsd-kind-icon">root</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="provenance.html#setbookmark" class="tsd-kind-icon">set<wbr>Bookmark</a></li>
 							</ul>
 						</section>
 					</div>
@@ -152,7 +154,7 @@
 					<div class="tsd-signature tsd-kind-icon">add<wbr>Action<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>label<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, action<span class="tsd-signature-symbol">: </span><a href="../globals.html#actionfunction" class="tsd-signature-type">ActionFunction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="../classes/action.html" class="tsd-signature-type">Action</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L50">Interfaces/Provenance.ts:50</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L50">Interfaces/Provenance.ts:50</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -201,7 +203,7 @@
 					<div class="tsd-signature tsd-kind-icon">add<wbr>Annotation<wbr>ToNode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><a href="../globals.html#nodeid" class="tsd-signature-type">NodeID</a>, annotation<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L110">Interfaces/Provenance.ts:110</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L110">Interfaces/Provenance.ts:110</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -240,7 +242,7 @@
 					<div class="tsd-signature tsd-kind-icon">add<wbr>Artifact<wbr>Observer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>func<span class="tsd-signature-symbol">: </span><a href="../globals.html#artifactsubscriberfunction" class="tsd-signature-type">ArtifactSubscriberFunction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L90">Interfaces/Provenance.ts:90</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L90">Interfaces/Provenance.ts:90</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -271,7 +273,7 @@
 					<div class="tsd-signature tsd-kind-icon">add<wbr>Extra<wbr>ToNode<wbr>Artifact<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><a href="../globals.html#nodeid" class="tsd-signature-type">NodeID</a>, extra<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L100">Interfaces/Provenance.ts:100</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L100">Interfaces/Provenance.ts:100</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -310,7 +312,7 @@
 					<div class="tsd-signature tsd-kind-icon">add<wbr>Global<wbr>Observer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>func<span class="tsd-signature-symbol">: </span><a href="../globals.html#subscriberfunction" class="tsd-signature-type">SubscriberFunction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L95">Interfaces/Provenance.ts:95</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L95">Interfaces/Provenance.ts:95</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -346,7 +348,7 @@
 					<div class="tsd-signature tsd-kind-icon">add<wbr>Observer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>propPath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, func<span class="tsd-signature-symbol">: </span><a href="../globals.html#subscriberfunction" class="tsd-signature-type">SubscriberFunction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L88">Interfaces/Provenance.ts:88</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L88">Interfaces/Provenance.ts:88</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -363,9 +365,9 @@
 								}
 							}</p>
 						</div>
-						<p>And you wanted an observer which was called whenever a node is selected, your propPath would be
+						<p>  And you wanted an observer which was called whenever a node is selected, your propPath would be
 						[&#39;selected&#39;].</p>
-						<p>If you wanted an observer strictly for when the position of A changed, your propPath would be
+						<p>  If you wanted an observer strictly for when the position of A changed, your propPath would be
 						[&#39;position&#39;, &#39;A&#39;]</p>
 						<p>Second parameter is associated subscriber function which is called when the observer is triggered</p>
 					</div>
@@ -400,7 +402,7 @@
 					<div class="tsd-signature tsd-kind-icon">apply<wbr>Action<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>label<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, action<span class="tsd-signature-symbol">: </span><a href="../globals.html#actionfunction" class="tsd-signature-type">ActionFunction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, args<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span>, metadata<span class="tsd-signature-symbol">?: </span><a href="nodemetadata.html" class="tsd-signature-type">NodeMetadata</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, artifacts<span class="tsd-signature-symbol">?: </span><a href="artifacts.html" class="tsd-signature-type">Artifacts</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, eventType<span class="tsd-signature-symbol">?: </span><a href="" class="tsd-signature-type">S</a>, complex<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span>, ephemeral<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">T</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L56">Interfaces/Provenance.ts:56</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L56">Interfaces/Provenance.ts:56</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -458,7 +460,7 @@
 					<div class="tsd-signature tsd-kind-icon">current<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="../globals.html#provenancenode" class="tsd-signature-type">ProvenanceNode</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L37">Interfaces/Provenance.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L37">Interfaces/Provenance.ts:37</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -488,7 +490,7 @@
 					<div class="tsd-signature tsd-kind-icon">done<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L156">Interfaces/Provenance.ts:156</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L156">Interfaces/Provenance.ts:156</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -518,7 +520,7 @@
 					<div class="tsd-signature tsd-kind-icon">export<wbr>Provenance<wbr>Graph<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L178">Interfaces/Provenance.ts:178</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L178">Interfaces/Provenance.ts:178</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -548,7 +550,7 @@
 					<div class="tsd-signature tsd-kind-icon">export<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>partial<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L167">Interfaces/Provenance.ts:167</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L167">Interfaces/Provenance.ts:167</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -579,12 +581,48 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="getbookmark" class="tsd-anchor"></a>
+					<h3>get<wbr>Bookmark</h3>
+					<div class="tsd-signature tsd-kind-icon">get<wbr>Bookmark<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><a href="../globals.html#nodeid" class="tsd-signature-type">NodeID</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L193">Interfaces/Provenance.ts:193</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Gets the bookmark of the node with the given ID.</p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><a href="../globals.html#nodeid" class="tsd-signature-type">NodeID</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>id: <a href="../globals.html#nodeid" class="tsd-signature-type">NodeID</a></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="getdifffromnode" class="tsd-anchor"></a>
 					<h3>get<wbr>Diff<wbr>From<wbr>Node</h3>
 					<div class="tsd-signature tsd-kind-icon">get<wbr>Diff<wbr>From<wbr>Node<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><a href="../globals.html#nodeid" class="tsd-signature-type">NodeID</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L183">Interfaces/Provenance.ts:183</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L183">Interfaces/Provenance.ts:183</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -620,7 +658,7 @@
 					<div class="tsd-signature tsd-kind-icon">get<wbr>Extra<wbr>From<wbr>Artifact<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><a href="../globals.html#nodeid" class="tsd-signature-type">NodeID</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="extra.html" class="tsd-signature-type">Extra</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L105">Interfaces/Provenance.ts:105</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L105">Interfaces/Provenance.ts:105</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -656,7 +694,7 @@
 					<div class="tsd-signature tsd-kind-icon">go<wbr>BackNSteps<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>n<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L130">Interfaces/Provenance.ts:130</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L130">Interfaces/Provenance.ts:130</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -698,7 +736,7 @@
 					<div class="tsd-signature tsd-kind-icon">go<wbr>Back<wbr>One<wbr>Step<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L123">Interfaces/Provenance.ts:123</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L123">Interfaces/Provenance.ts:123</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -729,7 +767,7 @@
 					<div class="tsd-signature tsd-kind-icon">go<wbr>Back<wbr>ToNon<wbr>Ephemeral<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L141">Interfaces/Provenance.ts:141</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L141">Interfaces/Provenance.ts:141</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -759,7 +797,7 @@
 					<div class="tsd-signature tsd-kind-icon">go<wbr>Forward<wbr>One<wbr>Step<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L136">Interfaces/Provenance.ts:136</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L136">Interfaces/Provenance.ts:136</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -790,7 +828,7 @@
 					<div class="tsd-signature tsd-kind-icon">go<wbr>Forward<wbr>ToNon<wbr>Ephemeral<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L146">Interfaces/Provenance.ts:146</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L146">Interfaces/Provenance.ts:146</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -820,7 +858,7 @@
 					<div class="tsd-signature tsd-kind-icon">go<wbr>ToNode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><a href="../globals.html#nodeid" class="tsd-signature-type">NodeID</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L117">Interfaces/Provenance.ts:117</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L117">Interfaces/Provenance.ts:117</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -862,7 +900,7 @@
 					<div class="tsd-signature tsd-kind-icon">graph<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="provenancegraph.html" class="tsd-signature-type">ProvenanceGraph</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L32">Interfaces/Provenance.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L32">Interfaces/Provenance.ts:32</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -892,7 +930,7 @@
 					<div class="tsd-signature tsd-kind-icon">import<wbr>Linear<wbr>States<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>states<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span>, labels<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, metadata<span class="tsd-signature-symbol">?: </span><a href="nodemetadata.html" class="tsd-signature-type">NodeMetadata</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L162">Interfaces/Provenance.ts:162</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L162">Interfaces/Provenance.ts:162</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -935,7 +973,7 @@
 					<div class="tsd-signature tsd-kind-icon">import<wbr>Provenance<wbr>Graph<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>importString<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L188">Interfaces/Provenance.ts:188</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L198">Interfaces/Provenance.ts:198</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -971,7 +1009,7 @@
 					<div class="tsd-signature tsd-kind-icon">import<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>importString<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L173">Interfaces/Provenance.ts:173</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L173">Interfaces/Provenance.ts:173</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1012,7 +1050,7 @@
 					<div class="tsd-signature tsd-kind-icon">reset<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L151">Interfaces/Provenance.ts:151</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L151">Interfaces/Provenance.ts:151</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1042,7 +1080,7 @@
 					<div class="tsd-signature tsd-kind-icon">root<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="rootnode.html" class="tsd-signature-type">RootNode</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/115b783/src/Interfaces/Provenance.ts#L41">Interfaces/Provenance.ts:41</a></li>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L41">Interfaces/Provenance.ts:41</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1060,6 +1098,45 @@
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-returns-title">Returns <a href="rootnode.html" class="tsd-signature-type">RootNode</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="setbookmark" class="tsd-anchor"></a>
+					<h3>set<wbr>Bookmark</h3>
+					<div class="tsd-signature tsd-kind-icon">set<wbr>Bookmark<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><a href="../globals.html#nodeid" class="tsd-signature-type">NodeID</a>, b<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/visdesignlab/trrack/blob/8d485cf/src/Interfaces/Provenance.ts#L188">Interfaces/Provenance.ts:188</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Sets the bookmark of the node with the given ID. the bookmark is set to true or false, equivalent on the second parameter.</p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><a href="../globals.html#nodeid" class="tsd-signature-type">NodeID</a>, b<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>id: <a href="../globals.html#nodeid" class="tsd-signature-type">NodeID</a></h5>
+											</li>
+											<li>
+												<h5>b: <span class="tsd-signature-type">boolean</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 									</li>
 								</ul>
 							</li>
@@ -1117,6 +1194,9 @@
 								<a href="provenance.html#exportstate" class="tsd-kind-icon">export<wbr>State</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="provenance.html#getbookmark" class="tsd-kind-icon">get<wbr>Bookmark</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="provenance.html#getdifffromnode" class="tsd-kind-icon">get<wbr>Diff<wbr>From<wbr>Node</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -1157,6 +1237,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="provenance.html#root" class="tsd-kind-icon">root</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="provenance.html#setbookmark" class="tsd-kind-icon">set<wbr>Bookmark</a>
 							</li>
 						</ul>
 					</li>
