@@ -3,26 +3,13 @@ import * as d3 from "d3";
 import
 {
   initProvenance,
-  ProvenanceGraph,
   Provenance,
-  ActionFunction,
-  SubscriberFunction,
-  NodeMetadata,
-  NodeID,
-  Diff,
-  RootNode,
-  StateNode,
-  ProvenanceNode,
-  isStateNode,
-  Nodes,
-  CurrentNode,
-  Artifacts,
-  Extra
+  NodeID
 } from '@visdesignlab/trrack';
 import Bars from "./FDBar"
 import Graph from "./FDGraph"
 
-import { ProvVis, EventConfig, Config, ProvVisConfig, ProvVisCreator, UndoRedoButtonCreator } from '@visdesignlab/trrack-vis';
+import {ProvVisCreator} from '@visdesignlab/trrack-vis';
 
 
 export interface NodeState {
@@ -61,38 +48,38 @@ d3.json("./data/miserables.json").then(graph => {
   * changes the les mis vis and updates the prov vis.
   */
   let select = function(currData){
-    let action = provenance.addAction(
+    provenance.addAction(
       currData.id ? currData.id + " Selected" : currData + " Selected",
       (state:NodeState) => {
         state.selectedNode = currData.id ? currData.id : currData;
         return state;
       }
-    );
-
-    action.applyAction();
+    )
+    .applyAction();
   }
 
   let dragEnded = function(d){
     //Doing this so clicking on node-link doesnt cause two state changes.
     const state = provenance.current().getState();
 
-    if(state.nodeMap[d.id][0] >= d.x -.1 &&
+    if(
+       state.nodeMap[d.id][0] >= d.x -.1 &&
        state.nodeMap[d.id][0] <= d.x + .1 &&
        state.nodeMap[d.id][1] >= d.y -.1 &&
-       state.nodeMap[d.id][1] <= d.y + .1){
+       state.nodeMap[d.id][1] <= d.y + .1
+     ){
       return;
     }
 
-    let action = provenance.addAction(
-      d.id + " Moved",
-      (state:NodeState) => {
-        state.nodeMap[d.id][0] = d.x;
-        state.nodeMap[d.id][1] = d.y;
-        return state;
-      }
-    );
-
-    action.applyAction();
+    provenance.addAction(
+        d.id + " Moved",
+        (state:NodeState) => {
+          state.nodeMap[d.id][0] = d.x;
+          state.nodeMap[d.id][1] = d.y;
+          return state;
+        }
+      )
+      .applyAction();
   }
 
   const barVis = new Bars(graph, hoverOver, hoverOut, select);
@@ -103,22 +90,17 @@ d3.json("./data/miserables.json").then(graph => {
   * Setting up observers. Called on state changed.
   */
 
+  provenance.addGlobalObserver(() => {
+    provVisUpdate();
+  })
+
   provenance.addObserver(["selectedNode"], () => {
     barVis.selectBar(provenance.current().getState().selectedNode);
     graphVis.selectNode(provenance.current().getState().selectedNode);
-
-    provVisUpdate()
   });
-
-  provenance.addGlobalObserver(() => {
-
-  })
 
   provenance.addObserver(["nodeMap"], () => {
     graphVis.moveNodes(provenance.current().getState().nodeMap);
-
-    console.log("moved")
-    provVisUpdate()
   });
 
   provenance.done();
@@ -159,11 +141,11 @@ d3.json("./data/miserables.json").then(graph => {
       (id: NodeID) => {
         provenance.goToNode(id);
       });
+
   }
 
   provVisUpdate();
 });
-
 
 
 

@@ -1,5 +1,7 @@
 import * as d3 from "d3"
 
+import {selectNodeUpdate, changeQuartetUpdate, hoverNodeUpdate} from "./provenanceSetup"
+
 export default class Scatterplot{
 
   margin:any;
@@ -11,11 +13,8 @@ export default class Scatterplot{
   xScale:d3.ScaleLinear<number, number>;
   yScale:d3.ScaleLinear<number, number>;
 
-  constructor(
-    changeQuartetFunc: (s:string) => void,
-    selectNodeFunc: (s:string) => void,
-    hoverNodeFunc: (s:string) => void
-  ){
+  constructor()
+  {
     this.margin = {};
     this.width = 0;
     this.height = 0;
@@ -44,10 +43,10 @@ export default class Scatterplot{
 
         d3.select("#quartets")
           .on("change", function(){
-            changeQuartetFunc((this as HTMLSelectElement).value);
+            changeQuartetUpdate((this as HTMLSelectElement).value);
           })
 
-        this.initializeVis(selectNodeFunc, hoverNodeFunc);
+        this.initializeVis();
       })
   }
 
@@ -55,7 +54,7 @@ export default class Scatterplot{
   * Creates an svg and draws the initial visualization
   */
 
-  initializeVis(selectNodeFunc: (s:string) => void, hoverNodeFunc: (s:string) => void)
+  initializeVis()
   {
     this.svg
       .attr("width", this.width + this.margin.left + this.margin.right)
@@ -73,9 +72,9 @@ export default class Scatterplot{
       .attr("id", d => "node_" + d.id)
       .attr("cx", d => this.xScale(+d.x))
       .attr("cy", d => this.height - this.yScale(+d.y))
-      .on("click", d => selectNodeFunc("node_" + d.id))
-      .on("mouseover", d => hoverNodeFunc("node_" + d.id))
-      .on("mouseout", d => hoverNodeFunc(""))
+      .on("click", d => selectNodeUpdate("node_" + d.id))
+      .on("mouseover", d => hoverNodeUpdate("node_" + d.id))
+      .on("mouseout", d => hoverNodeUpdate(""))
   }
 
   /**
