@@ -12,7 +12,7 @@ This is a collection of examples for the [trrack](https://github.com/visdesignla
 - Creating and applying actions to edit your state
 - Utilizing the trrack-vis library to visualize your history.
 
-## [simpleExampleAddAnnotation](http://vdl.sci.utah.edu/trrack-examples/examples/ssimpleExampleAddAnnotation)
+## [simpleExampleAddAnnotation](http://vdl.sci.utah.edu/trrack-examples/examples/simpleExampleAddAnnotation)
 
 - Adding annotations to nodes in your provenance graph
 - Creating and using "Extra" objects to be added to specific nodes
@@ -32,6 +32,6 @@ This is a collection of examples for the [trrack](https://github.com/visdesignla
 
 - Using the provenance library to easily store nodes into a firebase realtime database
 
-## [reactLesMisExample](http://vdl.sci.utah.edu/trrack-examples/examples/reactExample)
+## [reactLesMisExample](http://vdl.sci.utah.edu/provenance-lib-core-demo/)
 
 - Integrating provenance into a react based application
