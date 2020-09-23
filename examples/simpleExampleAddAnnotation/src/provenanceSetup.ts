@@ -102,19 +102,13 @@ export function hoverNodeUpdate(newHover: string){
     .applyAction();
 }
 
-// Create our scatterplot class which handles the actual vis. Pass it our three action functions
-// so it can use them when appropriate.
+// Create our scatterplot class which handles the actual vis.
+// Scatterplot contains 3 primary functions,
+
+// changeQuartet(string) - updates the current quartet
+// selectNode(string) - selects a new node
+// hoverNode(string) - hovers over a node or removes hover of empty string
 let scatterplot = new Scatterplot();
-
-//Create function to pass to the ProvVis library for when a node is selected in the graph.
-//For our purposes, were simply going to jump to the selected node.
-let visCallback = function(newNode:NodeID)
-{
-  prov.goToNode(newNode);
-
-  //Incase the state doesn't change and the observers arent called, updating the ProvVis here.
-  provVisUpdate()
-}
 
 // Set up observers for the three keys in state. These observers will get called either when an applyAction
 // function changes the associated keys value.
@@ -176,7 +170,12 @@ function provVisUpdate()
   ProvVisCreator(
     document.getElementById("provDiv")!,
     prov,
-    visCallback);
+    (newNode: NodeID) => {
+      prov.goToNode(newNode);
+
+      //Incase the state doesn't change and the observers arent called, updating the ProvVis here.
+      provVisUpdate()
+    });
 }
 
 //Setting up undo/redo hotkey to typical buttons
