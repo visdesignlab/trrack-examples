@@ -50,19 +50,10 @@ function BookmarkNode<T, S extends string, A>({
     />
   );
 
-  // console.log("in bookmark node");
 
   let dropDownAdded = false;
   const eventType = node.metadata.type;
-  //
-  // console.log(node);
-  // console.log(current);
-  // console.log(node.id)
 
-
-  // if(eventype !== selectedNode || (eventype !== selectedBar || (eventype !== movedNode){
-  //   currentGlyph =
-  // }
 
   // console.log(eventType);
   // console.log(eventConfig[eventType]);
@@ -83,13 +74,6 @@ function BookmarkNode<T, S extends string, A>({
       </g>
     );
   }
-
-
-
-  // glyph = (
-  //   <g style={cursorStyle} fontWeight={"none"}>
-  //     {backboneGlyph}
-  //   </g>);
 
 
   let label: string = "";

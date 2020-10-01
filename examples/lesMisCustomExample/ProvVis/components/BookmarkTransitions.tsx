@@ -38,17 +38,9 @@ export default function BookmarkTransitions(
 
     const { source, target } = data;
 
-    // console.log(data);
-    // console.log(nodeList);
-    // console.log(nodeList[0]);
-
 
     let x = 0;
     let y = 60*index;
-
-    // console.log(y);
-    // console.log(index);
-
 
 
     return {
@@ -66,12 +58,9 @@ export default function BookmarkTransitions(
         index = i;
       }
     }
-    // let backboneBundleNodes = findBackboneBundleNodes(nodeMap, bundleMap);
     let x = 0;
     let y = 60*index;
 
-    // console.log(y);
-    // console.log(index);
 
     return {
       x: [x],

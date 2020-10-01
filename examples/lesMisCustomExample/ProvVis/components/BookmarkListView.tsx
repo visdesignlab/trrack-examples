@@ -74,38 +74,9 @@ function BookmarkListView<T, S extends string, A>({
     }
   }
 
-  console.log(bookmarks);
-  console.log(times);
+  // console.log(bookmarks);
+  // console.log(times);
 
-  // let date = new Date(times[0]);
-  // console.log(date);
-
-
-  // if(isChildNode(current)){
-  //   while(true){
-  //     if(isChildNode(current)){
-  //       if(current.bookmarked || current.artifacts.annotation){
-  //         bookmarks.push(current);
-  //       }
-  //       }
-  //       else{
-  //         break;
-  //       }
-  //       current = graph.nodes[current.parent];
-  //   }
-  // }
-
-
-
-  //let nodeList = bookmarks;
-
-
- //  const items = [];
- //  for (const [index, value] of bookmarkList.entries()) {
- //   items.push(<li key={index}>{value}</li>)
- // }
-
- //console.log(bookmarks);
 
 
   let margin = {

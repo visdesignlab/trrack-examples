@@ -33,14 +33,6 @@ function  BookmarkToggle<T, S extends string, A>({
 
   return (
 
-    // <label className='checkbox-inline'>
-    //    <input
-    //      type='checkbox'
-    //      checked={bookmarkView}
-    //      onChange= {(e) => {setBookmarkView(!bookmarkView)}}
-    //    /> Show Bookmarked
-    //
-    //  </label>
 
     <Tabs activeKey={1} onSelect={(e) => {setBookmarkView(!bookmarkView)}}>
         <Tab eventKey={1} title="Provenance" label="Provenance">
@@ -48,7 +40,6 @@ function  BookmarkToggle<T, S extends string, A>({
         <Tab eventKey={2} title="Bookmarks" label="Bookmarks">
         </Tab>
       </Tabs>
-
 
 
  );
