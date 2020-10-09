@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Trrack Example with JS</title>
+    <script src="https://d3js.org/d3.v6.js"></script>
+</head>
+<body>
+<div><button id="sortButton">Toggle Sort</button></div>
+<svg>
+</svg>
+</body>
+<script>
+    class BarChart {
+        state =
+            {
+                sortAscending: true,
+                selected: new Set()
+            }
+        data = [4, 6, 9, 13, 19];
+
+        constructor() {
+            let height = 250;
+            let barHeight = 150;
+            let width = 300;
+
+            this.svg = d3.select("svg")
+            this.svg.attr("width", width)
+                .attr("height", height);
+
+            this.xScale = d3.scaleLinear()
+                .domain([0, d3.max(this.data)])
+                .range([0, width]);
+
+            this.yScale = d3.scaleBand()
+                .range([0, barHeight])
+                .padding(.1);
+
+            d3.select("#sortButton").on("click", this.toggleSort.bind(this));
+        }
+
+        renderBars() {
+            this.yScale.domain(this.data)
+            d3.select("svg").selectAll(".bar")
+                .data(this.data)
+                .join("rect")
+                .classed("bar", true)
+                .attr("x", "0")
+                .attr("y", (d, i) => this.yScale(d))
+                .attr("width", d => this.xScale(d))
+                .attr("height", this.yScale.bandwidth())
+                .style("fill", d => {
+                    if (this.state.selected.has(d))
+                        return "red";
+                    return "steelblue"
+                })
+
+                .on("click", this.handleSelection.bind(this));
+
+            console.log(this.state)
+
+        }
+
+        toggleSort() {
+            if (this.state.sortAscending) {
+                this.data = this.data.sort((a, b) => b - a)
+            } else {
+                this.data = this.data.sort((a, b) => a - b)
+            }
+            this.state.sortAscending = !this.state.sortAscending;
+            this.renderBars();
+        }
+
+        handleSelection(e, d) {
+                 if(this.state.selected.has(d))
+                        this.state.selected.delete(d);
+                    else
+                        this.state.selected.add(d);
+                    this.renderBars();
+        }
+    }
+    barChart = new BarChart();
+    barChart.renderBars();
+</script>
+</html>
