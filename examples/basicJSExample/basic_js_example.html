@@ -4,27 +4,42 @@
     <meta charset="UTF-8">
     <title>Basic Trrack Example with JS</title>
     <script src="https://d3js.org/d3.v6.js"></script>
+    <script src="../../trrack.js"></script>
 </head>
 <body>
-<div><button id="sortButton">Toggle Sort</button></div>
+<div>
+    <button id="sortButton">Toggle Sort</button>
+        <button id="undoButton">Undo</button>
+</div>
 <svg>
 </svg>
 </body>
 <script>
     class BarChart {
+        // the provenance tracking library
+        prov;
+        // an object describing the state of the application
         state =
             {
                 sortAscending: true,
-                selected: new Set()
+                selected: []
             }
+
         data = [4, 6, 9, 13, 19];
+        svg;
+        xScale;
+        yScale;
 
         constructor() {
-            let height = 250;
-            let barHeight = 150;
-            let width = 300;
+            this.prov = Trrack.initProvenance(this.state);
+            this.prov.addObserver(["sortAscending"], this.toggleSort.bind(this))
+            this.prov.addObserver(["selected"], this.renderBars.bind(this))
 
-            this.svg = d3.select("svg")
+            const height = 200;
+            const barHeight = 150;
+            const width = 300;
+
+            this.svg = d3.select("svg");
             this.svg.attr("width", width)
                 .attr("height", height);
 
@@ -36,50 +51,95 @@
                 .range([0, barHeight])
                 .padding(.1);
 
-            d3.select("#sortButton").on("click", this.toggleSort.bind(this));
+
+            //     d3.select("#sortButton").on("click", this.toggleSort.bind(this));
+            d3.select("#sortButton").on("click", () => {
+                this.prov.addAction(
+                    "sortAscending",
+                    (state) => {
+                        state.sortAscending = !state.sortAscending;
+                        return state;
+                    }
+                ).addEventType("sortAscending")
+                    .applyAction();
+            });
+
+            d3.select("#undoButton").on("click", () =>{
+                this.prov.goBackOneStep();
+            });
+
+            this.renderBars(this.state)
+
         }
 
-        renderBars() {
+        renderBars(state) {
             this.yScale.domain(this.data)
             d3.select("svg").selectAll(".bar")
                 .data(this.data)
                 .join("rect")
                 .classed("bar", true)
                 .attr("x", "0")
-                .attr("y", (d, i) => this.yScale(d))
+                .attr("y", (d) => this.yScale(d))
                 .attr("width", d => this.xScale(d))
                 .attr("height", this.yScale.bandwidth())
                 .style("fill", d => {
-                    if (this.state.selected.has(d))
+                    // array implementation
+                    if (state.selected.indexOf(d) >= 0)
                         return "red";
                     return "steelblue"
                 })
+                //.on("click", this.handleSelection.bind(this));
+                .on("click", (e, d) => {
+                        this.prov.addAction(
+                            "selected",
+                            (state) => {
 
-                .on("click", this.handleSelection.bind(this));
+                                let index = state.selected.indexOf(d)
+                                if (index >= 0) {
+                                    state.selected.splice(index, 1);
+                                  console.log("Slice", index)}
+                                else
+                                    state.selected.push(d);
 
-            console.log(this.state)
+                                console.log("After", state.selected)
+
+                               // set version
+                                // if (d in state.selected)
+                                //     state.selected.delete(d);
+                                // else
+                                //     this.state.selected.add(d);
+                                //state.sortAscending = !state.sortAscending;
+                                return state;
+                            }
+                        ).addEventType("selected")
+                            .applyAction();
+                    }
+                )
+            //console.log(this.state)
 
         }
 
-        toggleSort() {
-            if (this.state.sortAscending) {
-                this.data = this.data.sort((a, b) => b - a)
-            } else {
+        toggleSort(state) {
+            console.log("Sorting");
+            if (state.sortAscending) {
                 this.data = this.data.sort((a, b) => a - b)
+            } else {
+                this.data = this.data.sort((a, b) => b - a)
+
             }
-            this.state.sortAscending = !this.state.sortAscending;
-            this.renderBars();
+         //   this.state.sortAscending = !this.state.sortAscending;
+            this.renderBars(state);
         }
 
-        handleSelection(e, d) {
-                 if(this.state.selected.has(d))
-                        this.state.selected.delete(d);
-                    else
-                        this.state.selected.add(d);
-                    this.renderBars();
-        }
+        // handleSelection(e, d) {
+        //     if (this.state.selected.has(d))
+        //         this.state.selected.delete(d);
+        //     else
+        //         this.state.selected.add(d);
+        //     this.renderBars();
+        // }
     }
+
     barChart = new BarChart();
-    barChart.renderBars();
 </script>
 </html>
