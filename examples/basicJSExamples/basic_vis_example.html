@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Basic Trrack Example with JS</title>
+    <title>Basic Trrack Vis Example with JS</title>
     <script src="https://d3js.org/d3.v6.js"></script>
     <script src="../../trrack.js"></script>
 </head>
 <body>
 <div>
     <button id="sortButton">Toggle Sort</button>
-        <button id="undoButton">Undo</button>
+    <button id="undoButton">Undo</button>
 </div>
 <svg>
 </svg>
@@ -64,7 +64,7 @@
                     .applyAction();
             });
 
-            d3.select("#undoButton").on("click", () =>{
+            d3.select("#undoButton").on("click", () => {
                 this.prov.goBackOneStep();
             });
 
@@ -97,13 +97,13 @@
                                 let index = state.selected.indexOf(d)
                                 if (index >= 0) {
                                     state.selected.splice(index, 1);
-                                  console.log("Slice", index)}
-                                else
+                                    console.log("Slice", index)
+                                } else
                                     state.selected.push(d);
 
                                 console.log("After", state.selected)
 
-                               // set version
+                                // set version
                                 // if (d in state.selected)
                                 //     state.selected.delete(d);
                                 // else
@@ -111,12 +111,10 @@
                                 //state.sortAscending = !state.sortAscending;
                                 return state;
                             }
-                        ).addEventType("selected")
-                            .applyAction();
+                        ).addEventType("selected").applyAction();
                     }
                 )
             //console.log(this.state)
-
         }
 
         toggleSort(state) {
@@ -127,7 +125,7 @@
                 this.data = this.data.sort((a, b) => b - a)
 
             }
-         //   this.state.sortAscending = !this.state.sortAscending;
+            //   this.state.sortAscending = !this.state.sortAscending;
             this.renderBars(state);
         }
 

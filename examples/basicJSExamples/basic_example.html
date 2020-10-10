@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Trrack Example with JS</title>
+    <script src="../../trrack.js"></script>
+</head>
+<body>
+<div>
+    <button id="addButton">Add 1</button>
+    <input type="text" id="display" value="0"></input>
+    <button id="undoButton">Undo</button>
+</div>
+<svg>
+</svg>
+</body>
+<script>
+    state = {
+        number: 0
+    }
+
+    prov = Trrack.initProvenance(this.state);
+    prov.addObserver(["number"], updateDisplay)
+
+    document.getElementById('addButton').onclick = add;
+    document.getElementById('undoButton').onclick = prov.goBackOneStep();
+
+    function add() {
+        prov.addAction(
+            "add",
+            (state) => {
+                state.number += 1;
+                return state;
+            }
+        ).applyAction();
+    }
+
+    function updateDisplay(state) {
+        document.getElementById("display").value = state.number;
+    }
+</script>
+</html>
