@@ -1,13 +1,17 @@
-# provenance-examples
+# Examples for Using the Trrack Provenance Trackin Library 
 
-All of the examples can be accessed [here](http://vdl.sci.utah.edu/trrack-examples/)
+This is a collection of examples demonstrating how to use the [trrack](https://github.com/visdesignlab/trrack) provenance tracking library. Many of the examples also utilize [trrack-vis](https://github.com/visdesignlab/trrack-vis) to visualize the provenance graph produced by Trrack. Each examples are heavily commented for the parts of the code relevant to provenance tracking, and a brief overview of what can be found in each example is below.
 
-This is a collection of examples for the [trrack](https://github.com/visdesignlab/trrack) project. Many of the examples also utilize [trrack-vis](https://github.com/visdesignlab/trrack-vis) to visualize the provenance graph produced by trrack. Each example is heavily commented around areas that are utilizing trrack, and a brief overview of what can be found in each example is below.
+A live version of the examples can be accessed [here](http://vdl.sci.utah.edu/trrack-examples/)
+
+## Basic Javascript Only Examples
+
+## Typescipt Examples
 
 ## [simpleExample](http://vdl.sci.utah.edu/trrack-examples/examples/simpleExample)
 
 - Basic library creation, use of initProvenance.
-- Defining a State for your application
+- Defining a state for your application
 - Setting up observers to track your state
 - Creating and applying actions to edit your state
 - Utilizing the trrack-vis library to visualize your history.
