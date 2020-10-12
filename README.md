@@ -1,4 +1,4 @@
-# Examples for Using the Trrack Provenance Trackin Library 
+# Examples for Using the Trrack Provenance Tracking Library 
 
 This is a collection of examples demonstrating how to use the [trrack](https://github.com/visdesignlab/trrack) provenance tracking library. Many of the examples also utilize [trrack-vis](https://github.com/visdesignlab/trrack-vis) to visualize the provenance graph produced by Trrack. Each examples are heavily commented for the parts of the code relevant to provenance tracking, and a brief overview of what can be found in each example is below.
 
